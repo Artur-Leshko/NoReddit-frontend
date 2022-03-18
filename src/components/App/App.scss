@@ -1,0 +1,12 @@
+.App {
+    width: 200px;
+    height: 200px;
+    background-color: red;
+
+    &__text {
+        color: aqua;
+        font-size: 20px;
+        font-weight: 400;
+        text-align: center;
+    }
+}
