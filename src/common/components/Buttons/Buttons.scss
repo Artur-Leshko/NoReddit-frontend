@@ -1,0 +1,103 @@
+.btn {
+  color: white;
+  border-radius: 24px;
+
+  border: 0;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+
+  transition: 0.25s;
+
+  &-success {
+    border: 2px solid #11b806;
+
+    &:hover {
+      background-color: #11b806;
+    }
+  }
+
+
+  &-cancel {
+    border: 2px solid #cad803;
+
+    &:hover {
+      background-color: #cad803;
+    }
+  }
+
+  &-delete {
+    border: 2px solid red;
+
+    &:hover {
+      background-color: red;
+    }
+  }
+
+  &-add {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 10px 15px;
+    margin-bottom: 30px;
+    width: 15%;
+
+    border-radius: 10px;
+    border: 2px solid #0a5ac9;
+
+    transition: linear 0.2s;
+
+    &:hover {
+      background-color: #11b806;
+      border-color: #11b806;
+    }
+  }
+
+  &-login {
+    padding: 14px 10px;
+    margin: 15px auto 0;
+
+    width: 150px;
+
+    text-align: center;
+  }
+
+  &-info {
+    padding: 10px 15px;
+
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .button__cross {
+    position: relative;
+    width: 40px;
+    height: 40px;
+
+    &-left,
+    &-right {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      width: 100%;
+      height: 3px;
+
+      border-radius: 3px;
+      background-color: white;
+    }
+
+    &-left {
+      transform: rotateX(90deg);
+    }
+
+    &-right {
+      transform: rotateX(-90deg);
+    }
+  }
+
+  .button__text {
+    color: white;
+  }
+}
