@@ -1,28 +1,35 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true
-    },
-    "extends": [
-        "plugin:react-hooks/recommended",
-        "plugin:react/recommended",
-        "plugin:import/errors",
-        "plugin:import/warnings",
-        "google",
-        "plugin:prettier/recommended"
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "react-app",
+    "prettier"
+  ],
+  "plugins": [
+    "react",
+    "prettier"
+  ],
+  "rules": {
+    "jsx-quotes": [
+      2,
+      "prefer-single"
     ],
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": "latest",
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react",
-        "prettier"
+    "quotes": [
+      2,
+      "single"
     ],
-    "rules": {
-        "require-jsdoc": "off"
-    }
+    "semi": [
+      2,
+      "always"
+    ],
+    "comma-dangle": [
+      "error",
+      "always"
+    ],
+    "no-console": 2,
+    "no-debugger": 2,
+    "require-jsdoc": "off"
+  }
 }
