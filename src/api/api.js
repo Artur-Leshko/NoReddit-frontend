@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { AUTH_TOKEN_KEY, REFRESH_TOKEN_KEY, } from '../config';
+import { AUTH_TOKEN_KEY, REFRESH_TOKEN_KEY, REFRESH_TOKEN_URL, } from '../config';
 
 axios.defaults.withCredentials = true;
 
 const onRequestSuccess = config => {
-  const token = localStorage.getItem(AUTH_TOKEN_KEY);
+  const token = JSON.parse(localStorage.getItem(AUTH_TOKEN_KEY));
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 };
@@ -13,12 +13,34 @@ const onRequestFail = err => {
   Promise.reject(err);
 };
 
-const onResponseSuccess = response => {
-
-};
+const onResponseSuccess = response => response;
 
 const onResponseFail = err => {
+  const originalRequest = err.config;
 
+  if (err.response.status === 401 && originalRequest.url === REFRESH_TOKEN_URL) {
+    localStorage.removeItem(AUTH_TOKEN_KEY);
+    localStorage.removeItem(REFRESH_TOKEN_KEY);
+    window.location.href('/login');
+
+    return Promise.reject(err);
+  }
+
+  if (err.response.status === 401 && err.response.data.code === 'token_not_valid') {
+    const refreshToken = JSON.parse(localStorage.getItem(REFRESH_TOKEN_KEY));
+    return api.post(REFRESH_TOKEN_URL, {
+      refresh: refreshToken,
+    })
+      .then(res => {
+        if (res.status === 200) {
+          localStorage.setItem(AUTH_TOKEN_KEY, JSON.stringify(res.data.access));
+          api.defaults.headers.common.Authorization = `Bearer ${JSON.parse(localStorage.getItem(AUTH_TOKEN_KEY))}`;
+          return api(originalRequest);
+        }
+      });
+  }
+
+  return Promise.reject(err);
 };
 
 const createAPI = () => {
