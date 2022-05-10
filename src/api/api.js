@@ -1,12 +1,23 @@
 import axios from 'axios';
+import { AUTH_TOKEN_KEY, REFRESH_TOKEN_KEY, } from '../config';
 
 axios.defaults.withCredentials = true;
 
-const onSuccess = response => {
+const onRequestSuccess = config => {
+  const token = localStorage.getItem(AUTH_TOKEN_KEY);
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
+};
+
+const onRequestFail = err => {
+  Promise.reject(err);
+};
+
+const onResponseSuccess = response => {
 
 };
 
-const onFail = err => {
+const onResponseFail = err => {
 
 };
 
@@ -22,7 +33,8 @@ const createAPI = () => {
     headers,
   });
 
-  api.interceptors.response.use(onSuccess, onFail);
+  api.interceptors.request.use(onRequestSuccess, onRequestFail);
+  api.interceptors.response.use(onResponseSuccess, onResponseFail);
 
   return api;
 };
