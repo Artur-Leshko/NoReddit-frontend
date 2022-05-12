@@ -1,0 +1,33 @@
+.notfound {
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  &__title {
+    color: #fff700;
+    font-size: 40px;
+    font-weight: 600;
+    animation: glow 1s ease-in-out infinite alternate;
+  }
+
+  &__text {
+    color: #fff700;
+    font-size: 32px;
+    font-weight: 500;
+    animation: glow 1s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px rgb(246, 246, 97), 0 0 20px rgb(246, 246, 97), 0 0 30px #fff700, 0 0 40px #fff700, 0 0 50px #fff700, 0 0 60px #fff700, 0 0 70px #e6e03b;
+  }
+
+  to {
+    text-shadow: 0 0 20px rgb(255, 235, 54), 0 0 30px #f5f05f, 0 0 40px #f5f05f, 0 0 50px #f5f05f, 0 0 60px #f5f05f, 0 0 70px #f5f05f, 0 0 80px #f5f05f;
+  }
+}
