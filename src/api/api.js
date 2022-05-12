@@ -6,6 +6,7 @@ axios.defaults.withCredentials = true;
 const onRequestSuccess = config => {
   const token = JSON.parse(localStorage.getItem(AUTH_TOKEN_KEY));
   if (token) config.headers.Authorization = `Bearer ${token}`;
+  else config.headers.Authorization = null;
   return config;
 };
 
@@ -48,9 +49,10 @@ const createAPI = () => {
 
   headers['Accept'] = 'application/json';
   headers['Content-Type'] = 'application/json';
+  headers['Access-Control-Allow-Credentials'] = true;
 
   const api = axios.create({
-    baseURL: '/api/v1/',
+    baseURL: 'http://localhost:8000/api/v1/',
     timeout: 5000,
     headers,
   });
