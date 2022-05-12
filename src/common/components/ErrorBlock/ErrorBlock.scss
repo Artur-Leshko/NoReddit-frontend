@@ -1,0 +1,18 @@
+.error-span {
+  margin-top: 10px;
+
+  color: #EF4523;
+  font-size: 14px;
+
+  animation: errorAnimation 1.5s 1;
+}
+
+@keyframes errorAnimation {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
