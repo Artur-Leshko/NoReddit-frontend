@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, } from 'react';
 import clsx from 'clsx';
-import './Input.scss';
+import './Inputs.scss';
 
 export const InputKinds = {
   LOGIN: 'login',
