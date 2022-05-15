@@ -25,12 +25,16 @@ img {
   width: 100%;
 }
 
+ul {
+  list-style: none;
+}
+
 body {
   background-color: #46638c;
   font-family: 'Roboto', sans-serif;
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
 }
