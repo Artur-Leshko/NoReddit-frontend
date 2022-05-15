@@ -7,7 +7,7 @@
     "@testing-library/react": "12.1.4",
     "@testing-library/user-event": "13.5.0",
     "axios": "0.26.1",
-    "axios-case-converter": "0.9.0",
+    "axios-case-converter": "^0.9.0",
     "clsx": "^1.1.1",
     "moment": "2.29.1",
     "node-sass": "6.0.0",

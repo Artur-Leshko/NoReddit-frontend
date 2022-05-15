@@ -1,5 +1,6 @@
 import React, { useState, } from 'react';
 import { useNavigate, useLocation, } from 'react-router-dom';
+import { useDispatch, } from 'react-redux';
 import { AUTH_TOKEN_KEY, REFRESH_TOKEN_KEY, } from '../../config';
 import {
   Input,
@@ -8,7 +9,8 @@ import {
   ButtonKinds,
   ButtonStyles,
 } from '../../common';
-import { signIn, } from '../../api';
+import { signIn, getSelfUserpofile, } from '../../api';
+import { updateCurrentUser, } from '../../store/actions';
 import './user.scss';
 
 export const Login = () => {
@@ -18,20 +20,25 @@ export const Login = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onSignIn = event => {
     event.preventDefault();
 
-    signIn({ email, password, }).then(({ access, refresh, }) => {
+    signIn({ email, password, }).then(async ({ access, refresh, }) => {
       localStorage.setItem(AUTH_TOKEN_KEY, JSON.stringify(access));
       localStorage.setItem(REFRESH_TOKEN_KEY, JSON.stringify(refresh));
+
+      await getSelfUserpofile().then(user => updateCurrentUser(dispatch, user));
 
       if (location.state?.from) {
         navigate(location.state.from.pathname);
       } else {
         navigate('/');
       }
-    }).catch(err => setError('Bad email or password'));
+    }).catch(err => {
+      setError('Bad email or password');
+    });
   };
 
   return (

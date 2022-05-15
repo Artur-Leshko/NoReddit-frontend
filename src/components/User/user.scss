@@ -21,4 +21,14 @@
     padding: 14px 20px;
     width: 200px;
   }
+
+  &__registration-message {
+    color: #1dcc1d;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  &__registration-message--error {
+    color: #EF4523;
+  }
 }

@@ -19,6 +19,7 @@ export const Register = () => {
   const [password, setPassword,] = useState('');
   const [passwordConfirmation, setPasswordConfirmation,] = useState('');
   const [registerMessage, setRegisterMessage,] = useState('');
+  const [isError, setIsError,] = useState(false);
   const [errors, setErrors,] = useState({
     email: [],
     username: [],
@@ -35,9 +36,13 @@ export const Register = () => {
     setErrors(newErrors);
 
     if (canBeSubmited(newErrors)) {
-      singUp({ email, username, password, }).then(message => {
+      singUp({ email, username, password, }).then(({ message, }) => {
+        setIsError(false);
         setRegisterMessage(message);
         setTimeout(() => navigate('/login'), 3000);
+      }).catch(({ message, }) => {
+        setIsError(true);
+        setRegisterMessage(message);
       });
     }
   };
@@ -83,7 +88,7 @@ export const Register = () => {
         onChange={(e) => setPasswordConfirmation(e.target.value)}
       />
       <ErrorBlock errorArr={errors.passwordConfirmation} id={'passwordConfirmation'} />
-      {registerMessage ? <div className='auth__registration-message'>{registerMessage}</div> : null}
+      {registerMessage ? <div className={`box__registration-message${isError ? '--error' : ''}`}>{registerMessage}</div> : null}
       <Button
         kind={ButtonKinds.LOGIN}
         style={ButtonStyles.SUCCESS}

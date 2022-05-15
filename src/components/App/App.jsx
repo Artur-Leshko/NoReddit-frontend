@@ -3,17 +3,19 @@ import { Provider, } from 'react-redux';
 import myStore from '../../store';
 import AppRouter from './AppRouter';
 import { getSelfUserpofile, } from '../../api';
+import { Loader, } from '../../common';
 
 export const App = () => {
   const [user, setUser,] = useState(null);
+  const [isLoading, setIsLoading,] = useState(true);
 
   useEffect(() => {
-    getSelfUserpofile().then(data => console.log(data));
+    getSelfUserpofile()
+      .then(user => setUser(user))
+      .finally(() => setIsLoading(false));
   }, []);
 
   return (
-    <Provider store={myStore()}>
-      <AppRouter />
-    </Provider >
+    isLoading ? <Loader /> : <Provider store={myStore(user)}><AppRouter /></Provider >
   );
 };
