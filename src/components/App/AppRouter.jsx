@@ -12,7 +12,9 @@ const AppRouter = () => {
         <Route path='login' element={<Login />} />
         <Route path='register' element={<Register />} />
         <Route element={<ProtectedRoute />}>
-          <Route path='noreddit' element={<div>Hi!</div>} />
+          <Route path='noreddit' element={<Layout />} >
+            <Route index element={<div>Hi!</div>} />
+          </Route>
         </Route>
         <Route path='*' element={<NotFound />} />
       </Routes>
