@@ -9,12 +9,14 @@ export function canBeSubmited(errors) {
 
 //validates register form, returns object of errors
 export function validateRegisterForm({ email, username, password, passwordConfirmation, }) {
-  const errors = { email: [], username: [], password: [], passswordConfirmation: [], };
+  const errors = { email: [], username: [], password: [], passwordConfirmation: [], };
 
   errors.email = [{ ...validateEmail(email), },];
   errors.username = [{ ...validateUsername(username), },];
   errors.password = [{ ...validatePassword(password), },];
   errors.passswordConfirmation = [{ ...validatePasswordConfirmation(password, passwordConfirmation), },];
+
+  removeEmptyObjects(errors);
 
   return errors;
 }
@@ -22,6 +24,12 @@ export function validateRegisterForm({ email, username, password, passwordConfir
 
 /*=================================================================================================*/
 //     SUPPORTING FUNCTIONS THAT ARE USED TO VALIDATE PARTICULAR PARAMETERS(STRING, LINK, DATE, ETC.)
+
+function removeEmptyObjects(errors) {
+  for (let field in errors) {
+    errors[field] = errors[field].filter(item => Object.keys(item).length !== 0);
+  }
+}
 
 // validates email
 function validateEmail(email) {
