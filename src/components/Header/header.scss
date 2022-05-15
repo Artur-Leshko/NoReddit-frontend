@@ -1,3 +1,120 @@
-header {
-  background-color: white;
+.header {
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  right: 0%;
+
+  padding: 15px 0;
+
+  background-color: rgba(62, 116, 192, 0.5);
+  box-shadow: 0px 4px 20px 5px black;
+
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__logo {
+    width: 15%;
+    font-size: 30px;
+    font-weight: 600;
+
+    letter-spacing: 5px;
+    text-decoration: none;
+
+    span {
+      transition: 0.2s linear;
+    }
+
+    &-white {
+      color: white;
+    }
+
+    &-black {
+      color: black;
+    }
+
+    &-red {
+      color: red;
+    }
+
+    &:hover &-white {
+      color: black;
+    }
+
+    &:hover &-black {
+      color: white;
+    }
+  }
+
+  &__navigation {
+    width: 30%;
+
+    &-list {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &-link {
+      color: white;
+      font-size: 24px;
+      font-weight: 500;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 20%;
+
+    &-username>a {
+      color: white;
+      font-size: 20px;
+      font-weight: 500;
+
+      transition: 0.2s linear;
+
+      &:hover {
+        color: #adadad;
+      }
+    }
+
+    &-img {
+      position: relative;
+
+      width: 50px;
+      height: 50px;
+
+      border-radius: 50%;
+      overflow: hidden;
+
+      &:hover .header__user-gray {
+        opacity: 1;
+      }
+    }
+
+    &-gray {
+      opacity: 0;
+
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+
+      width: 100%;
+      height: 100%;
+
+      background-color: rgba(173, 173, 173, 0.6);
+      transition: 0.2s linear;
+    }
+  }
+
 }
