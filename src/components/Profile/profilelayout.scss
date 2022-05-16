@@ -1,0 +1,50 @@
+.profile {
+  padding-top: 30px;
+
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  &__sidebar {
+    width: 20%;
+    padding: 20px;
+
+    border: 2px solid white;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+
+    &-line {
+      width: 75%;
+      height: 2px;
+      margin: 10px auto 0;
+
+      background-color: white;
+    }
+
+    &-list>li {
+      margin-top: 15px;
+    }
+
+    &-link {
+      color: white;
+      font-size: 24px;
+      font-weight: 500;
+
+      transition: 0.2s linear;
+
+      &:hover {
+        color: #adadad;
+      }
+
+      &--active {
+        text-shadow: 0 0 10px rgb(255, 255, 255), 0 0 20px rgb(255, 255, 255), 0 0 30px #e3e3e3, 0 0 40px #e3e3e3, 0 0 50px #e3e3e3, 0 0 60px #e3e3e3, 0 0 70px #e3e3e3;
+
+        &:hover {
+          color: white;
+        }
+      }
+    }
+  }
+}
