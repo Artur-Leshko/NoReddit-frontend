@@ -1,8 +1,9 @@
 import { combineReducers, } from 'redux';
 import { USER_LOGOUT, } from '../constants';
 import currentUser from './currentUserReducer';
+import user from './userReducer';
 
-const appReducer = combineReducers({ currentUser, });
+const appReducer = combineReducers({ currentUser, user, });
 
 const initialState = {
   currentUser: null,
