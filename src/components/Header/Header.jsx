@@ -1,10 +1,21 @@
 import React from 'react';
 import { Link, } from 'react-router-dom';
+import { useDispatch, } from 'react-redux';
+import { logoutUser, } from '../../store/actions';
 import { Button, ButtonKinds, ButtonStyles, } from '../../common';
+import { AUTH_TOKEN_KEY, REFRESH_TOKEN_KEY, } from '../../config';
 import defaulAvatar from '../../images/default_avatar.png';
 import './header.scss';
 
 export const Header = () => {
+  const dispatch = useDispatch();
+
+  const onLogout = () => {
+    localStorage.removeItem(AUTH_TOKEN_KEY);
+    localStorage.removeItem(REFRESH_TOKEN_KEY);
+    logoutUser(dispatch);
+  };
+
   return (
     <header className='header'>
       <div className='container'>
@@ -17,7 +28,7 @@ export const Header = () => {
               <span className='header__logo-black'>e</span>
               <span className='header__logo-black'>d</span>
               <span className='header__logo-white'>d</span>
-              <spane className='header__logo-red'>i</spane>
+              <span className='header__logo-red'>i</span>
               <span className='header__logo-white'>t</span>
             </Link>
           </div>
@@ -45,6 +56,7 @@ export const Header = () => {
               style={ButtonStyles.DELETE}
               kind={ButtonKinds.INFO}
               className='header__user-logout'
+              onClick={() => onLogout()}
             >
               Logout
             </Button>
