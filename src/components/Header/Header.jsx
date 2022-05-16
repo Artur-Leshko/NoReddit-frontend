@@ -49,12 +49,12 @@ export const Header = () => {
           </nav>
           <div className='header__user'>
             <div className='header__user-username'>
-              <Link to='profile'>
+              <Link to={`profile/${userprofile.id}`}>
                 {profileName}
               </Link>
             </div>
             <div className='header__user-img'>
-              <Link to='profile' className='header__user-gray'></Link>
+              <Link to={`profile/${userprofile.id}`} className='header__user-gray'></Link>
               <img src={userprofile.avatar ? 'http://127.0.0.1:8000' + userprofile.avatar : defaulAvatar} alt='default user avatar' />
             </div>
             <Button
