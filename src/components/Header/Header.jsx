@@ -25,7 +25,7 @@ export const Header = () => {
     <header className='header'>
       <div className='container'>
         <div className='header__inner'>
-          <div className='header__logo'>
+          <h1 className='header__logo'>
             <Link to='/'>
               <span className='header__logo-white'>N</span>
               <span className='header__logo-red'>O</span>
@@ -36,7 +36,7 @@ export const Header = () => {
               <span className='header__logo-red'>i</span>
               <span className='header__logo-white'>t</span>
             </Link>
-          </div>
+          </h1>
           <nav className='header__navigation'>
             <ul className='header__navigation-list'>
               <li>
