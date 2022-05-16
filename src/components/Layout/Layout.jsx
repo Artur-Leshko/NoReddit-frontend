@@ -6,7 +6,9 @@ export const Layout = () => {
   return (
     <React.Fragment>
       <Header />
-      <Outlet />
+      <main>
+        <Outlet />
+      </main>
     </React.Fragment>
   );
 };
