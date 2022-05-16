@@ -6,3 +6,9 @@ export const getSelfUserpofile = async () => {
     .then(data => data)
     .catch(error => Promise.reject(error));
 };
+
+export const getAnyUserProfile = async (id) => {
+  return api.get(`user/${id}/profile/`)
+    .then(data => data)
+    .catch(error => Promise.reject(error));
+};

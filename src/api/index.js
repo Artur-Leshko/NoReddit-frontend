@@ -1,2 +1,2 @@
 export { signIn, singUp, } from './auth';
-export { getSelfUserpofile, } from './userprofile';
+export { getSelfUserpofile, getAnyUserProfile, } from './userprofile';
