@@ -12,7 +12,7 @@ export const App = () => {
   useEffect(() => {
     getSelfUserpofile()
       .then(user => setUser(user))
-      .finally(() => setIsLoading(false));
+      .finally(() => setTimeout(() => setIsLoading(false), 1000));
   }, []);
 
   return (
