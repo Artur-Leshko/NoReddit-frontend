@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, } from 'react-router-dom';
-import './profile.scss';
+import './profilelayout.scss';
 
 export const Sidebar = ({ currentId, profileId, }) => {
   return (
@@ -10,7 +10,7 @@ export const Sidebar = ({ currentId, profileId, }) => {
         <li>
           <NavLink className={({ isActive, }) => isActive ? 'profile__sidebar-link profile__sidebar-link--active'
             : 'profile__sidebar-link'}
-            to={`/noreddit/profile/${profileId}`}
+            end to=''
           >
             My profile
           </NavLink>
@@ -18,7 +18,7 @@ export const Sidebar = ({ currentId, profileId, }) => {
         <li>
           <NavLink className={({ isActive, }) => isActive ? 'profile__sidebar-link profile__sidebar-link--active'
             : 'profile__sidebar-link'}
-            to='follower'>
+            to='followers'>
             Followers
           </NavLink>
         </li>
