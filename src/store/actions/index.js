@@ -1,1 +1,1 @@
-export { updateCurrentUser, } from './currentUserActions';
+export { updateCurrentUser, logoutUser, } from './currentUserActions';
