@@ -1,13 +1,18 @@
 import React from 'react';
 import { Link, } from 'react-router-dom';
-import { useDispatch, } from 'react-redux';
+import { useDispatch, useSelector, } from 'react-redux';
 import { logoutUser, } from '../../store/actions';
+import { userSelector, } from '../../store/selectors';
 import { Button, ButtonKinds, ButtonStyles, } from '../../common';
 import { AUTH_TOKEN_KEY, REFRESH_TOKEN_KEY, } from '../../config';
 import defaulAvatar from '../../images/default_avatar.png';
 import './header.scss';
 
 export const Header = () => {
+  const userprofile = useSelector(userSelector);
+  const profileName = userprofile.firstname && userprofile.surname ? userprofile.firstname + ' ' + userprofile.surname
+    : userprofile.user.username;
+
   const dispatch = useDispatch();
 
   const onLogout = () => {
@@ -45,12 +50,12 @@ export const Header = () => {
           <div className='header__user'>
             <div className='header__user-username'>
               <Link to='profile'>
-                MyName
+                {profileName}
               </Link>
             </div>
             <div className='header__user-img'>
               <Link to='profile' className='header__user-gray'></Link>
-              <img src={defaulAvatar} alt='default user avatar' />
+              <img src={userprofile.avatar ? 'http://127.0.0.1:8000' + userprofile.avatar : defaulAvatar} alt='default user avatar' />
             </div>
             <Button
               style={ButtonStyles.DELETE}
