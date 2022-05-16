@@ -1,0 +1,85 @@
+.profile__user {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  width: 70%;
+
+  &-title {
+    color: white;
+    font-size: 24px;
+    font-weight: 500;
+
+    margin-bottom: 8px;
+  }
+
+  &-img {
+    position: relative;
+
+    width: 300px;
+    height: 300px;
+
+    border-radius: 50%;
+
+    overflow: hidden;
+
+    &:hover .profile__user-gray {
+      opacity: 1;
+    }
+  }
+
+  &-gray {
+    opacity: 0;
+
+    position: absolute;
+    top: 0%;
+    left: 0%;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(173, 173, 173, 0.6);
+    transition: 0.2s linear;
+    cursor: pointer;
+  }
+
+  &-subscriptions {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    margin-top: 30px;
+
+    .profile__user-followers,
+    .profile__user-followed {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      color: white;
+      font-size: 22px;
+      font-weight: 500;
+
+      span {
+        margin-top: 10px;
+      }
+    }
+  }
+
+  &-info {
+    width: 50%;
+  }
+
+  &-item {
+    margin-bottom: 30px;
+  }
+
+  &-username,
+  &-firstname,
+  &-surname {
+    color: black;
+    font-size: 24px;
+    font-weight: 500;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  }
+}
