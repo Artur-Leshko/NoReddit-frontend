@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate, } from 'react-router-dom';
 import { NotFound, ProtectedRoute, } from '../../common';
 import { Layout, } from '../Layout';
 import { Login, Register, } from '../User';
-import { ProfileLayout, } from '../Profile';
+import { ProfileLayout, } from '../Profile/ProfileLayout';
 
 const AppRouter = () => {
   return (
