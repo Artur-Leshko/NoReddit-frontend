@@ -1,25 +1,9 @@
-import React, { useState, useEffect, } from 'react';
-import { useParams, } from 'react-router-dom';
-import { useDispatch, useSelector, } from 'react-redux';
-import { anyUserSelector, } from '../../../store/selectors';
-import { getAnyUserProfile, } from '../../../api';
-import { updateUser, } from '../../../store/actions';
+import React from 'react';
 import { Input, InputKinds, Button, ButtonKinds, ButtonStyles, Loader, } from '../../../common';
 import defaulAvatar from '../../../images/default_avatar.png';
 import './userprofile.scss';
 
-export const Userprofile = () => {
-  const [isLoading, setIsLoading,] = useState(true);
-  const user = useSelector(anyUserSelector);
-
-  const { profileId, } = useParams();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    setIsLoading(true);
-    getAnyUserProfile(profileId).then(user => updateUser(dispatch, user)).finally(() => setTimeout(() => setIsLoading(false), 1000));
-  }, [profileId,]);
-
+export const Userprofile = ({ isLoading, user, }) => {
   return (
     isLoading ? <Loader /> :
       <div className='profile__user'>
