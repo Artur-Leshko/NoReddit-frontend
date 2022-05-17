@@ -2,17 +2,25 @@ import React from 'react';
 import { NavLink, } from 'react-router-dom';
 import './profilelayout.scss';
 
-export const Sidebar = ({ currentId, profileId, }) => {
+export const Sidebar = ({ username, currentId, profileId, }) => {
   return (
     <div className='profile__sidebar'>
-      <div className='profile__sidebar-line'></div>
+      <div className='profile__sidebar-username'>{username}</div>
       <ul className='profile__sidebar-list'>
         <li>
           <NavLink className={({ isActive, }) => isActive ? 'profile__sidebar-link profile__sidebar-link--active'
             : 'profile__sidebar-link'}
             end to=''
           >
-            My profile
+            Profile
+          </NavLink>
+        </li>
+        <li>
+          <NavLink className={({ isActive, }) => isActive ? 'profile__sidebar-link profile__sidebar-link--active'
+            : 'profile__sidebar-link'}
+            to={currentId === profileId ? '/noreddit/myposts' : 'posts'}
+          >
+            Posts
           </NavLink>
         </li>
         <li>
@@ -27,14 +35,6 @@ export const Sidebar = ({ currentId, profileId, }) => {
             : 'profile__sidebar-link'}
             to='followed'>
             Followed
-          </NavLink>
-        </li>
-        <li>
-          <NavLink className={({ isActive, }) => isActive ? 'profile__sidebar-link profile__sidebar-link--active'
-            : 'profile__sidebar-link'}
-            to={currentId === profileId ? '/noreddit/myposts' : 'posts'}
-          >
-            Posts
           </NavLink>
         </li>
       </ul>
