@@ -1,7 +1,8 @@
 import React, { useState, useEffect, } from 'react';
-import { useParams, } from 'react-router-dom';
+import { useParams, Link, } from 'react-router-dom';
 import { useDispatch, useSelector, } from 'react-redux';
 import { Loader, } from '../../../common';
+import defaultAvatar from '../../../images/default_avatar.png';
 import './subscriptions.scss';
 
 export const Subscriptions = ({ title, getSubscriptions, updateSubscriptions, subscriptionsSelector, }) => {
@@ -23,15 +24,30 @@ export const Subscriptions = ({ title, getSubscriptions, updateSubscriptions, su
         {subscriptions.length > 0 ?
           <ul className='profile__subscriptions-list'>
             {subscriptions.map(subscription => {
-
+              const name = subscription?.firstname + '' + subscription?.surname || subscription.user.username;
               return (
                 <li key={subscription.id}>
-                  {subscription.id}
+                  <div className='profile__subscriptions-info'>
+                    <div className='profile__subscriptions-img'>
+                      <img src={subscription.avatar ? 'http://127.0.0.1:8000' + subscription.avatar
+                        : defaultAvatar} alt='avatar' />
+                    </div>
+                    <div className='profile__subscriptions-name'>
+                      {name}
+                    </div>
+                  </div>
+                  <Link
+                    to={`/noreddit/profile/${subscription.id}`}
+                    className='profile__subscriptions-arrow'
+                  >
+                    <div className='profile__subscriptions-arrow--top'></div>
+                    <div className='profile__subscriptions-arrow--right'></div>
+                  </Link>
                 </li>
               );
             })}
           </ul>
-          : <div className='profile__subscriptions-noitems'></div>
+          : <div className='profile__subscriptions-noitems'>The list is empty :(</div>
         }
       </div>
   );
