@@ -1,5 +1,5 @@
 import React, { useState, useEffect, } from 'react';
-import { Route, Routes, useParams, } from 'react-router-dom';
+import { Route, Routes, useParams, Navigate, } from 'react-router-dom';
 import { useSelector, useDispatch, } from 'react-redux';
 import { userSelector, anyUserSelector, followedSelector, followersSelector, } from '../../store/selectors';
 import { updateFollowers, updateFollowed, updateUser, } from '../../store/actions';
@@ -7,8 +7,8 @@ import { getFollowers, getFollowed, getAnyUserProfile, } from '../../api';
 import { Sidebar, } from './Sidebar';
 import { Userprofile, } from './Userprofile/Userprofile';
 import { Subscriptions, } from './Subscriptions/Subscriptions';
-import './profilelayout.scss';
 import { Loader, } from '../../common';
+import './profilelayout.scss';
 
 export const ProfileLayout = () => {
   const [isLoading, setIsLoading,] = useState(true);
@@ -65,6 +65,7 @@ export const ProfileLayout = () => {
                   />
                 }
               />
+              <Route path='*' element={<Navigate to='/not-found' replace />} />
             </Routes>
           }
         </div>
