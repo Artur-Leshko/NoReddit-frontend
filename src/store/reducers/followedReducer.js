@@ -2,7 +2,7 @@ import {
   UPDATE_FOLLOWED,
 } from '../constants';
 
-export default function followerdReducer(state = [], data) {
+export default function followedReducer(state = [], data) {
   const { type, payload, } = data;
 
   switch (type) {

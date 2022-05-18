@@ -1,3 +1,4 @@
 export { updateCurrentUser, logoutUser, } from './currentUserActions';
+export { updateCurrentUserFollowed, addCurrentUserFollowed, removeCurrentUserFollowed, } from './currentUserFollowed';
 export { updateUser, } from './userAction';
-export { updateFollowed, updateFollowers, } from './subscriptions';
+export { updateFollowed, updateFollowers, addFollower, removeFollower, } from './subscriptions';

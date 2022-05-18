@@ -4,8 +4,9 @@ import currentUser from './currentUserReducer';
 import user from './userReducer';
 import followers from './followersReducer';
 import followed from './followedReducer';
+import currentUserFollowed from './currentUserFollowed';
 
-const appReducer = combineReducers({ currentUser, user, followers, followed, });
+const appReducer = combineReducers({ currentUser, currentUserFollowed, user, followers, followed, });
 
 const initialState = {
   currentUser: null,

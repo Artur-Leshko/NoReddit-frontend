@@ -24,3 +24,15 @@ export const getFollowed = async (id) => {
     .then(data => data)
     .catch(error => Promise.reject(error));
 };
+
+export const subscribeOnUser = async (id) => {
+  return api.post(`user/${id}/subscribe/`)
+    .then(data => data)
+    .catch(error => Promise.reject(error));
+};
+
+export const unsubscribeFromUser = async (id) => {
+  return api.post(`user/${id}/unsubscribe/`)
+    .then(data => data)
+    .catch(error => Promise.reject(error));
+};
