@@ -1,8 +1,14 @@
 import React, { useState, useEffect, } from 'react';
 import { Route, Routes, useParams, Navigate, } from 'react-router-dom';
 import { useSelector, useDispatch, } from 'react-redux';
-import { userSelector, anyUserSelector, followedSelector, followersSelector, } from '../../store/selectors';
-import { updateFollowers, updateFollowed, updateUser, } from '../../store/actions';
+import {
+  userSelector,
+  userFollowedSelector,
+  anyUserSelector,
+  followedSelector,
+  followersSelector,
+} from '../../store/selectors';
+import { updateFollowers, updateFollowed, updateUser, updateCurrentUserFollowed, } from '../../store/actions';
 import { getFollowers, getFollowed, getAnyUserProfile, } from '../../api';
 import { Sidebar, } from './Sidebar';
 import { Userprofile, } from './Userprofile/Userprofile';
@@ -11,8 +17,9 @@ import { Loader, } from '../../common';
 import './profilelayout.scss';
 
 export const ProfileLayout = () => {
-  const [isLoading, setIsLoading,] = useState(true);
+  const [isLoading, setIsLoading,] = useState({ isCurrentUserFollowedLoading: true, isInfoLoading: true, });
   const currentUser = useSelector(userSelector);
+  const currentUserFollowed = useSelector(userFollowedSelector);
   const user = useSelector(anyUserSelector);
   const followers = useSelector(followersSelector);
   const followed = useSelector(followedSelector);
@@ -21,13 +28,21 @@ export const ProfileLayout = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setIsLoading(true);
+    setIsLoading(prevState => ({ ...prevState, isCurrentUserFollowedLoading: true, }));
+
+    getFollowed(currentUser.id)
+      .then(followed => updateCurrentUserFollowed(dispatch, followed.results))
+      .finally(() => setTimeout(() => setIsLoading(prevState => ({ ...prevState, isCurrentUserFollowedLoading: false, })), 1000));
+  }, []);
+
+  useEffect(() => {
+    setIsLoading(prevState => ({ ...prevState, isInfoLoading: true, }));
 
     Promise.all([
       getAnyUserProfile(profileId).then(user => updateUser(dispatch, user)),
       getFollowed(profileId).then(followed => updateFollowed(dispatch, followed.results)),
       getFollowers(profileId).then(followers => updateFollowers(dispatch, followers.results)),
-    ]).finally(() => setTimeout(() => setIsLoading(false), 1000));;
+    ]).finally(() => setTimeout(() => setIsLoading(prevState => ({ ...prevState, isInfoLoading: false, })), 1000));;
   }, [profileId,]);
 
   return (
@@ -35,13 +50,15 @@ export const ProfileLayout = () => {
       <div className='container'>
         <div className='profile__inner'>
           <Sidebar username={user.user?.username || null} currentId={currentUser.id} profileId={profileId} />
-          {isLoading ? <Loader /> :
+          {isLoading.isCurrentUserFollowedLoading || isLoading.isInfoLoading ? <Loader /> :
             <Routes>
               <Route
                 index path=''
                 element={
                   <Userprofile
+                    currentUser={currentUser}
                     user={user}
+                    currentUserFollowed={currentUserFollowed}
                     profileId={profileId}
                     currentId={currentUser.id}
                   />
