@@ -8,18 +8,26 @@ import { Sidebar, } from './Sidebar';
 import { Userprofile, } from './Userprofile/Userprofile';
 import { Subscriptions, } from './Subscriptions/Subscriptions';
 import './profilelayout.scss';
+import { Loader, } from '../../common';
 
 export const ProfileLayout = () => {
-  const [isUserLoading, setIsUserLoading,] = useState(true);
+  const [isLoading, setIsLoading,] = useState(true);
   const currentUser = useSelector(userSelector);
   const user = useSelector(anyUserSelector);
+  const followers = useSelector(followersSelector);
+  const followed = useSelector(followedSelector);
 
   const { profileId, } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setIsUserLoading(true);
-    getAnyUserProfile(profileId).then(user => updateUser(dispatch, user)).finally(() => setTimeout(() => setIsUserLoading(false), 1000));
+    setIsLoading(true);
+
+    Promise.all([
+      getAnyUserProfile(profileId).then(user => updateUser(dispatch, user)),
+      getFollowed(profileId).then(followed => updateFollowed(dispatch, followed.results)),
+      getFollowers(profileId).then(followers => updateFollowers(dispatch, followers.results)),
+    ]).finally(() => setTimeout(() => setIsLoading(false), 1000));;
   }, [profileId,]);
 
   return (
@@ -27,39 +35,38 @@ export const ProfileLayout = () => {
       <div className='container'>
         <div className='profile__inner'>
           <Sidebar username={user.user?.username || null} currentId={currentUser.id} profileId={profileId} />
-          <Routes>
-            <Route
-              index path=''
-              element={
-                <Userprofile
-                  isLoading={isUserLoading}
-                  user={user}
-                />
-              }
-            />
-            <Route
-              path='followers'
-              element={
-                <Subscriptions
-                  title='Followers'
-                  getSubscriptions={getFollowers}
-                  updateSubscriptions={updateFollowers}
-                  subscriptionsSelector={followersSelector}
-                />
-              }
-            />
-            <Route
-              path='followed'
-              element={
-                <Subscriptions
-                  title='Followed'
-                  getSubscriptions={getFollowed}
-                  updateSubscriptions={updateFollowed}
-                  subscriptionsSelector={followedSelector}
-                />
-              }
-            />
-          </Routes>
+          {isLoading ? <Loader /> :
+            <Routes>
+              <Route
+                index path=''
+                element={
+                  <Userprofile
+                    user={user}
+                    profileId={profileId}
+                    currentId={currentUser.id}
+                  />
+                }
+              />
+              <Route
+                path='followers'
+                element={
+                  <Subscriptions
+                    title='Followers'
+                    subscriptions={followers}
+                  />
+                }
+              />
+              <Route
+                path='followed'
+                element={
+                  <Subscriptions
+                    title='Followed'
+                    subscriptions={followed}
+                  />
+                }
+              />
+            </Routes>
+          }
         </div>
       </div>
     </div>
