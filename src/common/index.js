@@ -3,5 +3,6 @@ export { Input, Select, Textarea, SelectKinds, InputKinds, } from './components/
 export { ErrorBlock, } from './components/ErrorBlock/ErrorBlock';
 export { NotFound, } from './components/NotFound/NotFound';
 export { Loader, } from './components/Loader/Loader';
+export { EditText, } from './components/EditComponents';
 export { ProtectedRoute, } from './components/ProtectedRoute';
-export { canBeSubmited, validateRegisterForm, } from './functions/validateFunctions';
+export { canBeSubmited, validateRegisterForm, validateUsernameForm, } from './functions/validateFunctions';
