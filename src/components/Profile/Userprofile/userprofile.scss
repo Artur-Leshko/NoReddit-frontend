@@ -72,6 +72,10 @@
 
   &-item {
     margin-bottom: 30px;
+
+    input {
+      border-color: white;
+    }
   }
 
   &-username,
@@ -86,5 +90,17 @@
   &-subscribe {
     font-size: 18px;
     font-weight: 500;
+  }
+
+  &-btns {
+    margin-top: 8px;
+
+    .profile__user-cancel {
+      margin-left: 8px;
+    }
+  }
+
+  .profile__avatar-input--hidden {
+    display: none;
   }
 }

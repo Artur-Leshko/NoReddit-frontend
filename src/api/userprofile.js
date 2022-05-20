@@ -7,6 +7,16 @@ export const getSelfUserpofile = async () => {
     .catch(error => Promise.reject(error));
 };
 
+export const updateUserProfile = async (formData) => {
+  return api.put('user/self/profile/', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+    .then(data => data)
+    .catch(error => Promise.reject(error));
+};
+
 export const getAnyUserProfile = async (id) => {
   return api.get(`user/${id}/profile/`)
     .then(data => data)

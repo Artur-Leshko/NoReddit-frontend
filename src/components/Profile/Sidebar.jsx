@@ -5,7 +5,7 @@ import './profilelayout.scss';
 export const Sidebar = ({ username, currentId, profileId, }) => {
   return (
     <div className='profile__sidebar'>
-      <div className='profile__sidebar-username'>{username}</div>
+      <div className='profile__sidebar-username'>{username?.length > 12 ? username.slice(0, 13) + '...' : username}</div>
       <ul className='profile__sidebar-list'>
         <li>
           <NavLink className={({ isActive, }) => isActive ? 'profile__sidebar-link profile__sidebar-link--active'
