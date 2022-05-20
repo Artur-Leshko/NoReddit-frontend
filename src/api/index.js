@@ -7,3 +7,7 @@ export {
   subscribeOnUser,
   unsubscribeFromUser,
 } from './userprofile';
+
+export {
+  getPopularPosts,
+} from './posts';
