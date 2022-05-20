@@ -19,8 +19,19 @@ export function validateRegisterForm({ email, username, password, passwordConfir
   removeEmptyObjects(errors);
 
   return errors;
+
 }
 
+//validates username for profile change
+export function validateUsernameForm(username) {
+  const errors = { username: [], };
+
+  errors.username = [{ ...validateUsername(username), },];
+
+  removeEmptyObjects(errors);
+
+  return errors;
+}
 
 /*=================================================================================================*/
 //     SUPPORTING FUNCTIONS THAT ARE USED TO VALIDATE PARTICULAR PARAMETERS(STRING, LINK, DATE, ETC.)
@@ -46,7 +57,7 @@ function validateEmail(email) {
 // validates username
 function validateUsername(username) {
   const errorObj = { errorText: [], id: 'username', };
-  const regExp = new RegExp(/^[a-zA-Z]*$/);
+  const regExp = new RegExp(/^[a-zA-Z0-9]*$/);
 
   if (!username || username.length < 4) {
     errorObj.errorText.push('This field must contain at least 4 characters!');
