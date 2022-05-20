@@ -15,7 +15,6 @@ import './userprofile.scss';
 
 export const Userprofile = ({ currentUser, user, currentUserFollowed, profileId, currentId, }) => {
   const [isFollowing, setIsFollowing,] = useState(Boolean(currentUserFollowed.find(user => user.id === profileId)));
-  const [avatar, setAvatar,] = useState(user.avatar);
 
   const inputRef = useRef();
   const dispatch = useDispatch();
