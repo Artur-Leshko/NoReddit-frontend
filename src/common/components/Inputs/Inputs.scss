@@ -39,7 +39,7 @@
 
 .textarea {
   font-family: sans-serif;
-  color: white;
+  color: #0a5ac9;
   font-size: 16px;
   font-weight: 500;
   border: 0;
@@ -98,7 +98,7 @@
   }
 
   &__current {
-    color: white;
+    color: #0a5ac9;
     font-size: 16px;
     font-weight: 500;
     line-height: 24px;
@@ -110,8 +110,8 @@
 
     margin-top: -4px;
 
-    border-top: 2px solid white;
-    border-right: 2px solid white;
+    border-top: 2px solid #0a5ac9;
+    border-right: 2px solid #0a5ac9;
 
     transform: rotate(135deg);
 
