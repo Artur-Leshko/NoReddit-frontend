@@ -6,8 +6,9 @@ import followers from './followersReducer';
 import followed from './followedReducer';
 import currentUserFollowed from './currentUserFollowed';
 import popularPosts from './popularPostsReducer';
+import userPosts from './userPostsReducer';
 
-const appReducer = combineReducers({ currentUser, currentUserFollowed, user, followers, followed, popularPosts, });
+const appReducer = combineReducers({ currentUser, currentUserFollowed, user, followers, followed, popularPosts, userPosts, });
 
 const initialState = {
   currentUser: null,
