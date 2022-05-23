@@ -5,3 +5,5 @@ export const followedSelector = state => state.followed;
 export const userFollowedSelector = state => state.currentUserFollowed;
 export const popularPostsSelector = state => state.popularPosts;
 export const userPostsSelector = state => state.userPosts;
+export const upvotedPostsSelector = state => state.votedPosts.up;
+export const downvotedPostsSelector = state => state.votedPosts.down;
