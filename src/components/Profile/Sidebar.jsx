@@ -18,7 +18,7 @@ export const Sidebar = ({ username, currentId, profileId, }) => {
         <li>
           <NavLink className={({ isActive, }) => isActive ? 'profile__sidebar-link profile__sidebar-link--active'
             : 'profile__sidebar-link'}
-            to={currentId === profileId ? '/noreddit/myposts' : 'posts'}
+            to='posts'
           >
             Posts
           </NavLink>
