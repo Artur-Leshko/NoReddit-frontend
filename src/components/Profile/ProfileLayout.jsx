@@ -7,12 +7,21 @@ import {
   anyUserSelector,
   followedSelector,
   followersSelector,
+  userPostsSelector,
 } from '../../store/selectors';
-import { updateFollowers, updateFollowed, updateUser, updateCurrentUserFollowed, } from '../../store/actions';
-import { getFollowers, getFollowed, getAnyUserProfile, } from '../../api';
+import {
+  updateFollowers,
+  updateFollowed,
+  updateUser,
+  updateCurrentUserFollowed,
+  updateUserPosts,
+  updateSeparateUserPost,
+} from '../../store/actions';
+import { getFollowers, getFollowed, getAnyUserProfile, getUserPosts, } from '../../api';
 import { Sidebar, } from './Sidebar';
 import { Userprofile, } from './Userprofile/Userprofile';
 import { Subscriptions, } from './Subscriptions/Subscriptions';
+import { UserPostsList, } from '../Posts';
 import { Loader, } from '../../common';
 import './profilelayout.scss';
 
@@ -21,6 +30,7 @@ export const ProfileLayout = () => {
   const currentUser = useSelector(userSelector);
   const currentUserFollowed = useSelector(userFollowedSelector);
   const user = useSelector(anyUserSelector);
+  const posts = useSelector(userPostsSelector);
   const followers = useSelector(followersSelector);
   const followed = useSelector(followedSelector);
 
@@ -42,7 +52,8 @@ export const ProfileLayout = () => {
       getAnyUserProfile(profileId).then(user => updateUser(dispatch, user)),
       getFollowed(profileId).then(followed => updateFollowed(dispatch, followed.results)),
       getFollowers(profileId).then(followers => updateFollowers(dispatch, followers.results)),
-    ]).finally(() => setTimeout(() => setIsLoading(prevState => ({ ...prevState, isInfoLoading: false, })), 1000));;
+      getUserPosts({ search: profileId, }).then(posts => updateUserPosts(dispatch, posts.results)),
+    ]).finally(() => setTimeout(() => setIsLoading(prevState => ({ ...prevState, isInfoLoading: false, })), 1000));
   }, [profileId,]);
 
   return (
@@ -63,6 +74,17 @@ export const ProfileLayout = () => {
                     currentId={currentUser.id}
                   />
                 }
+              />
+              <Route
+                path='posts'
+                element={
+                  <UserPostsList
+                    posts={posts}
+                    needBtn={currentUser.id === profileId}
+                    fixedBtn={false}
+                    main={false}
+                    updatePost={updateSeparateUserPost}
+                  />}
               />
               <Route
                 path='followers'
