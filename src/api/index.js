@@ -11,6 +11,8 @@ export {
 export {
   getPopularPosts,
   getUserPosts,
+  getDownvotedPosts,
+  getUpvotedPosts,
   upvotePost,
   downvotePost,
 } from './posts';

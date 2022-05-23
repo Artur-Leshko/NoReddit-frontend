@@ -12,6 +12,18 @@ export const getUserPosts = async (params) => {
     .catch(error => Promise.reject(error));
 };
 
+export const getUpvotedPosts = async () => {
+  return api.get('/posts/upvoted/',)
+    .then(data => data)
+    .catch(error => Promise.reject(error));
+};
+
+export const getDownvotedPosts = async () => {
+  return api.get('/posts/downvoted/',)
+    .then(data => data)
+    .catch(error => Promise.reject(error));
+};
+
 export const upvotePost = async (postId) => {
   return api.put(`/posts/${postId}/upvote/`)
     .then(data => data)
