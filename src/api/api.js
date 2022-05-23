@@ -12,7 +12,7 @@ const createAPI = () => {
 
   const api = applyCaseMiddleware(axios.create({
     baseURL: 'http://localhost:8000/api/v1',
-    timeout: 5000,
+    timeout: 10000,
     headers,
   }));
 
@@ -27,7 +27,7 @@ const createAPI = () => {
     Promise.reject(err);
   };
 
-  const onResponseSuccess = response => response.data;
+  const onResponseSuccess = response => response.config.url === REFRESH_TOKEN_URL ? response : response.data;
 
   const onResponseFail = err => {
     const originalRequest = err.config;
