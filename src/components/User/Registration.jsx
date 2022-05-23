@@ -1,5 +1,6 @@
-import React, { useState, } from 'react';
+import React, { useState, useEffect, } from 'react';
 import { useNavigate, } from 'react-router-dom';
+import { useSelector, } from 'react-redux';
 import {
   Input,
   InputKinds,
@@ -11,9 +12,11 @@ import {
   validateRegisterForm,
 } from '../../common';
 import { singUp, } from '../../api';
+import { userSelector, } from '../../store/selectors';
 import './user.scss';
 
 export const Register = () => {
+  const currentUser = useSelector(userSelector);
   const [email, setEmail,] = useState('');
   const [username, setUsername,] = useState('');
   const [password, setPassword,] = useState('');
@@ -28,6 +31,10 @@ export const Register = () => {
   });
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (currentUser) navigate('/');
+  }, [currentUser,]);
 
   const onSignUp = event => {
     event.preventDefault();

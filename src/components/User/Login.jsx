@@ -1,6 +1,6 @@
-import React, { useState, } from 'react';
+import React, { useEffect, useState, } from 'react';
 import { useNavigate, useLocation, } from 'react-router-dom';
-import { useDispatch, } from 'react-redux';
+import { useDispatch, useSelector, } from 'react-redux';
 import { AUTH_TOKEN_KEY, REFRESH_TOKEN_KEY, } from '../../config';
 import {
   Input,
@@ -11,9 +11,11 @@ import {
 } from '../../common';
 import { signIn, getSelfUserpofile, } from '../../api';
 import { updateCurrentUser, } from '../../store/actions';
+import { userSelector, } from '../../store/selectors';
 import './user.scss';
 
 export const Login = () => {
+  const currentUser = useSelector(userSelector);
   const [email, setEmail,] = useState('');
   const [password, setPassword,] = useState('');
   const [error, setError,] = useState('');
@@ -21,6 +23,10 @@ export const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (currentUser) navigate('/');
+  }, [currentUser,]);
 
   const onSignIn = event => {
     event.preventDefault();
