@@ -11,7 +11,7 @@ import './header.scss';
 export const Header = () => {
   const userprofile = useSelector(userSelector);
   const profileName = userprofile.firstname && userprofile.surname ? userprofile.firstname + ' ' + userprofile.surname
-    : userprofile.user.username;
+    : userprofile?.user?.username;
 
   const dispatch = useDispatch();
 
