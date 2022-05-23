@@ -5,3 +5,15 @@ export const getPopularPosts = async () => {
     .then(data => data)
     .catch(error => Promise.reject(error));
 };
+
+export const upvotePost = async (postId) => {
+  return api.put(`/posts/${postId}/upvote/`)
+    .then(data => data)
+    .catch(error => Promise.reject(error));
+};
+
+export const downvotePost = async (postId) => {
+  return api.put(`/posts/${postId}/downvote/`)
+    .then(data => data)
+    .catch(error => Promise.reject(error));
+};
