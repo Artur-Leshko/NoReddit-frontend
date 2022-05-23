@@ -10,6 +10,7 @@ export {
 
 export {
   getPopularPosts,
+  getUserPosts,
   upvotePost,
   downvotePost,
 } from './posts';
