@@ -43,7 +43,7 @@ export const Header = () => {
                 <Link to='categories' className='header__navigation-link'>Post categories</Link>
               </li>
               <li>
-                <Link to='myposts' className='header__navigation-link'>My posts</Link>
+                <Link to={`profile/${userprofile.id}/posts`} className='header__navigation-link'>My posts</Link>
               </li>
             </ul>
           </nav>
