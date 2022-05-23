@@ -4,11 +4,11 @@ import reducers from './reducers';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-export default function initializeStore(user) {
+export default function initializeStore(user, votedPosts) {
   const currentUser = user;
   const store = createStore(
     reducers,
-    { currentUser, },
+    { currentUser, votedPosts, },
     composeEnhancers(applyMiddleware(thunk))
   );
 

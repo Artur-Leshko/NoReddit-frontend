@@ -75,6 +75,22 @@
         transform: scale(1.05);
         box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.6);
       }
+
+      &.up {
+        border-color: #11b806;
+
+        &:hover {
+          box-shadow: 0 0 15px 5px rgba(17, 184, 6, 0.6);
+        }
+      }
+
+      &.down {
+        border-color: #ff2d2d;
+
+        &:hover {
+          box-shadow: 0 0 15px 5px rgba(255, 45, 45, 0.6);
+        }
+      }
     }
 
     li:last-child {
@@ -88,6 +104,14 @@
       align-items: center;
       padding: 15px 25px;
       border-right: 2px solid white;
+
+      &--up {
+        border-color: #11b806;
+      }
+
+      &--down {
+        border-color: #ff2d2d;
+      }
 
       .posts__arrows {
         &-group {
