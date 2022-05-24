@@ -9,6 +9,7 @@ export {
   canBeSubmited,
   validateRegisterForm,
   validateUsernameForm,
+  validatePostForm,
   validatePostText,
   validatePostTitle,
 } from './functions/validateFunctions';
