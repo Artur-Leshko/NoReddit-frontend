@@ -10,7 +10,7 @@ export const EditText = ({ defaultInfo = '', infoType, labelName, placeholder,
 
   return (
     <>
-      <div className={`${classNamePrefix}-title`}>{labelName}:</div>
+      {labelName ? <div className={`${classNamePrefix}-title`}>{labelName}:</div> : null}
       {!editMode ?
         <div className={classNamePrefix + '-' + infoType}>{defaultInfo}</div>
         : <Input
