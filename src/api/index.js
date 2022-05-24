@@ -10,6 +10,7 @@ export {
 
 export {
   getPopularPosts,
+  getSeparatePost,
   getUserPosts,
   getDownvotedPosts,
   getUpvotedPosts,

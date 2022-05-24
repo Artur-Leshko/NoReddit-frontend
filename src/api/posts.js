@@ -6,6 +6,12 @@ export const getPopularPosts = async () => {
     .catch(error => Promise.reject(error));
 };
 
+export const getSeparatePost = async (postId) => {
+  return api.get(`/posts/${postId}/`)
+    .then(data => data)
+    .catch(error => Promise.reject(error));
+};
+
 export const getUserPosts = async (params) => {
   return api.get('/posts', { params: { ...params, }, })
     .then(data => data)
