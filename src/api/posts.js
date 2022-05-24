@@ -53,3 +53,9 @@ export const createPost = async (postData) => {
     .then(data => data)
     .catch(error => Promise.reject(error));
 };
+
+export const deletePost = async (postId) => {
+  return api.delete(`/posts/${postId}/delete/`)
+    .then(data => data)
+    .catch(error => Promise.reject(error));
+};

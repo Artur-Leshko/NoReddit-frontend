@@ -1,6 +1,7 @@
-import React, { useEffect, useState, } from 'react';
+import React, { useEffect, useState, useContext, } from 'react';
 import { useDispatch, useSelector, } from 'react-redux';
 import { useNavigate, useParams, } from 'react-router-dom';
+import { ModalContext, } from '../../../contexts';
 import {
   Button,
   ButtonKinds,
@@ -11,7 +12,7 @@ import {
   validatePostTitle,
   validatePostText,
 } from '../../../common';
-import { getSeparatePost, upvotePost, downvotePost, updatePost, } from '../../../api';
+import { getSeparatePost, upvotePost, downvotePost, updatePost, deletePost, } from '../../../api';
 import {
   updateSeparatePost,
   addUpvotedPost,
@@ -24,6 +25,7 @@ import defaultAvatar from '../../../images/default_avatar.png';
 import './separatepost.scss';
 
 export const SeparatePost = ({ currentUser, }) => {
+  const { openModal, closeModal, } = useContext(ModalContext);
   const post = useSelector(separatePostSelector);
   const upvotedPosts = useSelector(upvotedPostsSelector);
   const downvotedPosts = useSelector(downvotedPostsSelector);
@@ -37,6 +39,8 @@ export const SeparatePost = ({ currentUser, }) => {
   const { postId, } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const isEditable = currentUser.id === post.owner?.id;
 
   useEffect(() => {
     getSeparatePost(postId)
@@ -65,6 +69,38 @@ export const SeparatePost = ({ currentUser, }) => {
       .then(currentUser => {
         updateSeparatePost(dispatch, currentUser);
       });
+  };
+
+  const onDeleteConfirm = () => {
+    deletePost(post.id)
+      .then(() => {
+        closeModal();
+        navigate(-1);
+      });
+  };
+
+  const onDelete = () => {
+    openModal({
+      title: 'Do you want to delete this post?',
+      children: <>
+        <Button
+          kind={ButtonKinds.INFO}
+          style={ButtonStyles.DELETE}
+          onClick={onDeleteConfirm}
+          className='modal-btn'
+        >
+          Delete
+        </Button>
+        <Button
+          kind={ButtonKinds.INFO}
+          style={ButtonStyles.CANCEL}
+          onClick={closeModal}
+          className='modal-btn'
+        >
+          Cancel
+        </Button>
+      </>,
+    });
   };
 
   return (
@@ -139,7 +175,7 @@ export const SeparatePost = ({ currentUser, }) => {
             infoType='title'
             placeholder='Title'
             classNamePrefix='post__info'
-            isEditable={currentUser.id === post.owner.id}
+            isEditable={isEditable}
             validateFunc={validatePostTitle}
             onSave={onSave}
           />
@@ -148,10 +184,20 @@ export const SeparatePost = ({ currentUser, }) => {
             infoType='text'
             placeholder='Text'
             classNamePrefix='post__info'
-            isEditable={currentUser.id === post.owner.id}
+            isEditable={isEditable}
             validateFunc={validatePostText}
             onSave={onSave}
           />
+          {isEditable ?
+            <Button
+              kind={ButtonKinds.INFO}
+              style={ButtonStyles.DELETE}
+              className='post__info-delete'
+              onClick={onDelete}
+            >
+              Delete post
+            </Button>
+            : null}
         </div>
         <div className='post__add'>
           <Button
