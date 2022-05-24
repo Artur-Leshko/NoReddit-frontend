@@ -89,7 +89,7 @@ export const UserPostsList = ({ title, posts, needBtn, fixedBtn, main, updatePos
                   </div>
                   <div className='posts__info-title'>{post.title}</div>
                   <div className='posts__info-text'>
-                    {post.mainText.length > 100 ? post.mainText.slice(101) + '...' : post.mainText}
+                    {post.mainText.length > 40 ? post.mainText.slice(0, 41) + '...' : post.mainText}
                   </div>
                 </div>
               </li>
