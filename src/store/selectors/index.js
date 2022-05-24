@@ -7,3 +7,4 @@ export const popularPostsSelector = state => state.popularPosts;
 export const userPostsSelector = state => state.userPosts;
 export const upvotedPostsSelector = state => state.votedPosts.up;
 export const downvotedPostsSelector = state => state.votedPosts.down;
+export const separatePostSelector = state => state.separatePost;
