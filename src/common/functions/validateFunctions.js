@@ -23,6 +23,18 @@ export function validateRegisterForm({ email, username, password, passwordConfir
 }
 
 //validates username for profile change
+export function validatePostForm({ title, mainText, }) {
+  const errors = { title: [], mainText: [], };
+
+  errors.title = [{ ...validateTitle(title), },];
+  errors.mainText = [{ ...validateMainText(mainText), },];
+
+  removeEmptyObjects(errors);
+
+  return errors;
+}
+
+//validates username for profile change
 export function validateUsernameForm(username) {
   const errors = { username: [], };
 
@@ -120,6 +132,10 @@ function validateTitle(title) {
 
   if (!title || title.length < 6) {
     errorObj.errorText.push('Title must constain at least 6 characters!');
+  }
+
+  if (title.length > 20) {
+    errorObj.errorText.push('Title can not consist more than 20 characters!');
   }
 
   return errorObj.errorText.length === 0 ? null : errorObj;
