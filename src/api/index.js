@@ -16,4 +16,5 @@ export {
   getUpvotedPosts,
   upvotePost,
   downvotePost,
+  updatePost,
 } from './posts';
