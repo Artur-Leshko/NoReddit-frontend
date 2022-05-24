@@ -47,3 +47,9 @@ export const updatePost = async (postId, dataToUpdate) => {
     .then(data => data)
     .catch(error => Promise.reject(error));
 };
+
+export const createPost = async (postData) => {
+  return api.post('/posts/create/', { ...postData, })
+    .then(data => data)
+    .catch(error => Promise.reject(error));
+};

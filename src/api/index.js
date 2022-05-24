@@ -17,4 +17,5 @@ export {
   upvotePost,
   downvotePost,
   updatePost,
+  createPost,
 } from './posts';
