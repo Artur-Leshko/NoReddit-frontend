@@ -41,3 +41,9 @@ export const downvotePost = async (postId) => {
     .then(data => data)
     .catch(error => Promise.reject(error));
 };
+
+export const updatePost = async (postId, dataToUpdate) => {
+  return api.put(`/posts/${postId}/edit/`, { ...dataToUpdate, })
+    .then(data => data)
+    .catch(error => Promise.reject(error));
+};

@@ -33,6 +33,28 @@ export function validateUsernameForm(username) {
   return errors;
 }
 
+//validates title for post change
+export function validatePostTitle(title) {
+  const errors = { title: [], };
+
+  errors.title = [{ ...validateTitle(title), },];
+
+  removeEmptyObjects(errors);
+
+  return errors;
+}
+
+//validates text for post change
+export function validatePostText(text) {
+  const errors = { text: [], };
+
+  errors.text = [{ ...validateMainText(text), },];
+
+  removeEmptyObjects(errors);
+
+  return errors;
+}
+
 /*=================================================================================================*/
 //     SUPPORTING FUNCTIONS THAT ARE USED TO VALIDATE PARTICULAR PARAMETERS(STRING, LINK, DATE, ETC.)
 
@@ -87,6 +109,28 @@ function validatePasswordConfirmation(password, confPassword) {
 
   if (password !== confPassword) {
     errorObj.errorText.push('Passwords are not matching!');
+  }
+
+  return errorObj.errorText.length === 0 ? null : errorObj;
+}
+
+// validates title of post
+function validateTitle(title) {
+  const errorObj = { errorText: [], id: 'title', };
+
+  if (!title || title.length < 6) {
+    errorObj.errorText.push('Title must constain at least 6 characters!');
+  }
+
+  return errorObj.errorText.length === 0 ? null : errorObj;
+}
+
+// validates mainText of post
+function validateMainText(mainText) {
+  const errorObj = { errorText: [], id: 'text', };
+
+  if (!mainText || mainText.length < 20) {
+    errorObj.errorText.push('Text must constain at least 20 characters!');
   }
 
   return errorObj.errorText.length === 0 ? null : errorObj;

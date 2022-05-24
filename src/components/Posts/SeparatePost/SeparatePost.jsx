@@ -1,8 +1,17 @@
 import React, { useEffect, useState, } from 'react';
 import { useDispatch, useSelector, } from 'react-redux';
 import { useNavigate, useParams, } from 'react-router-dom';
-import { Button, ButtonKinds, ButtonStyles, Loader, EditText, } from '../../../common';
-import { getSeparatePost, upvotePost, downvotePost, } from '../../../api';
+import {
+  Button,
+  ButtonKinds,
+  ButtonStyles,
+  Loader,
+  EditText,
+  EditTextarea,
+  validatePostTitle,
+  validatePostText,
+} from '../../../common';
+import { getSeparatePost, upvotePost, downvotePost, updatePost, } from '../../../api';
 import {
   updateSeparatePost,
   addUpvotedPost,
@@ -45,6 +54,17 @@ export const SeparatePost = ({ currentUser, }) => {
 
   const isPostDownvoted = (post) => {
     return downvotedPosts.find(p => p.id === post.id);
+  };
+
+  const onSave = (e, key, data) => {
+    e.preventDefault();
+
+    const body = key === 'text' ? { 'mainText': data, } : { [key]: data, };
+
+    updatePost(post.id, body)
+      .then(currentUser => {
+        updateSeparatePost(dispatch, currentUser);
+      });
   };
 
   return (
@@ -114,10 +134,24 @@ export const SeparatePost = ({ currentUser, }) => {
               {post.owner.username}
             </div>
           </div>
-          <div className='post__info-title'>{post.title}</div>
-          <div className='post__info-text'>
-            {post.mainText}
-          </div>
+          <EditText
+            defaultInfo={post.title}
+            infoType='title'
+            placeholder='Title'
+            classNamePrefix='post__info'
+            isEditable={currentUser.id === post.owner.id}
+            validateFunc={validatePostTitle}
+            onSave={onSave}
+          />
+          <EditTextarea
+            defaultInfo={post.mainText}
+            infoType='text'
+            placeholder='Text'
+            classNamePrefix='post__info'
+            isEditable={currentUser.id === post.owner.id}
+            validateFunc={validatePostText}
+            onSave={onSave}
+          />
         </div>
         <div className='post__add'>
           <Button

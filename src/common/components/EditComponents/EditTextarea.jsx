@@ -1,7 +1,7 @@
 import React, { useState, } from 'react';
-import { Input, InputKinds, Button, ButtonKinds, ButtonStyles, ErrorBlock, } from '../../index';
+import { Textarea, TextareaKinds, Button, ButtonKinds, ButtonStyles, ErrorBlock, } from '../../index';
 
-export const EditText = ({ defaultInfo = '', infoType, labelName, placeholder,
+export const EditTextarea = ({ defaultInfo = '', infoType, labelName, placeholder,
   classNamePrefix, isEditable, validateFunc = undefined, onSave, }) => {
 
   const [editMode, setEditMode,] = useState(false);
@@ -13,8 +13,8 @@ export const EditText = ({ defaultInfo = '', infoType, labelName, placeholder,
       {labelName ? <div className={`${classNamePrefix}-title`}>{labelName}:</div> : null}
       {!editMode ?
         <div className={classNamePrefix + '-' + infoType}>{defaultInfo}</div>
-        : <Input
-          kind={InputKinds.INFO}
+        : <Textarea
+          kind={TextareaKinds.INFO}
           type='text'
           value={info}
           placeholder={placeholder}
