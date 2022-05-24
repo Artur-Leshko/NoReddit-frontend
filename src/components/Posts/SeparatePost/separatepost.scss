@@ -258,5 +258,17 @@
     &-cancel {
       margin-left: 10px;
     }
+
+    &-delete {
+      margin-top: 15px;
+      padding: 10px 25px;
+      font-size: 22px;
+    }
   }
+}
+
+.modal-btn {
+  font-size: 22px;
+  font-weight: 500;
+  padding: 10px 20px;
 }
