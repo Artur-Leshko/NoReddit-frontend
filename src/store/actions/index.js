@@ -15,3 +15,12 @@ export {
 } from './votedPostsAction';
 export { updateSeparatePost, } from './separatePostActions';
 export { updatePostComments, } from './postCommentsActions';
+export {
+  updateDownvotedComment,
+  updateUpvotedComment,
+  updateVotedComments,
+  addDownvotedComment,
+  addUpvotedComment,
+  removeDownvotedComment,
+  removeUpvotedComment,
+} from './votedCommentsActions';
