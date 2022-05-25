@@ -10,6 +10,7 @@ import userPosts from './userPostsReducer';
 import votedPosts from './votedPostsReducer';
 import separatePost from './separatePostReducer';
 import postComments from './postCommentsReducer';
+import votedComments from './votedCommentsReducer';
 
 const appReducer = combineReducers({
   currentUser,
@@ -22,6 +23,7 @@ const appReducer = combineReducers({
   userPosts,
   separatePost,
   postComments,
+  votedComments,
 });
 
 const initialState = {
