@@ -20,3 +20,7 @@ export {
   createPost,
   deletePost,
 } from './posts';
+
+export {
+  getPostComments,
+} from './comments';
