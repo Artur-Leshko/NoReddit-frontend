@@ -12,15 +12,27 @@ import {
   validatePostTitle,
   validatePostText,
 } from '../../../common';
-import { getSeparatePost, upvotePost, downvotePost, updatePost, deletePost, } from '../../../api';
+import {
+  getSeparatePost,
+  upvotePost,
+  downvotePost,
+  updatePost,
+  deletePost,
+  getPostComments,
+  getUpvotedComments,
+  getDownvotedComments,
+} from '../../../api';
 import {
   updateSeparatePost,
   addUpvotedPost,
   addDownvotedPost,
   removeUpvotedPost,
   removeDownvotedPost,
+  updatePostComments,
+  updateVotedComments,
 } from '../../../store/actions';
 import { separatePostSelector, upvotedPostsSelector, downvotedPostsSelector, } from '../../../store/selectors';
+import { CommentsList, } from '../../Comments';
 import defaultAvatar from '../../../images/default_avatar.png';
 import './separatepost.scss';
 
@@ -43,13 +55,19 @@ export const SeparatePost = ({ currentUser, }) => {
   const isEditable = currentUser.id === post.owner?.id;
 
   useEffect(() => {
-    getSeparatePost(postId)
-      .then(post => {
-        updateSeparatePost(dispatch, post);
-        setIsUpvoted(isPostUpvoted(post));
-        setIsDownvoted(isPostDownvoted(post));
-      })
-      .finally(() => setTimeout(setIsLoading(false), 1000));
+    Promise.all([
+      getSeparatePost(postId).then(post => post),
+      getPostComments(postId).then(comments => comments.results),
+      getUpvotedComments(postId).then(comments => comments.results),
+      getDownvotedComments(postId).then(comments => comments.results),
+    ]).then(data => {
+      updateSeparatePost(dispatch, data[0]);
+      setIsUpvoted(isPostUpvoted(post));
+      setIsDownvoted(isPostDownvoted(post));
+
+      updatePostComments(dispatch, data[1]);
+      updateVotedComments(dispatch, { up: data[2], down: data[3], });
+    }).finally(() => setTimeout(() => setIsLoading(false), 1000));
   }, [postId,]);
 
   const isPostUpvoted = (post) => {
@@ -198,6 +216,7 @@ export const SeparatePost = ({ currentUser, }) => {
               Delete post
             </Button>
             : null}
+          <CommentsList />
         </div>
         <div className='post__add'>
           <Button
