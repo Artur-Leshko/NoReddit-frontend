@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch, } from 'react-redux';
-import { Button, ButtonKinds, ButtonStyles, EditText, } from '../../common';
+import { Button, ButtonKinds, ButtonStyles, EditTextarea, validateCommentText, } from '../../common';
 import {
   addUpvotedComment,
   addDownvotedComment,
@@ -8,16 +8,35 @@ import {
   removeDownvotedComment,
   updateSeparatePostComment,
 } from '../../store/actions';
-import { upvoteComment, downvoteComment, } from '../../api';
-import { postCommentsSelector, upvotedCommentsSelector, downvotedCommentsSelector, } from '../../store/selectors';
+import { updateComment, upvoteComment, downvoteComment, } from '../../api';
+import {
+  postCommentsSelector,
+  upvotedCommentsSelector,
+  downvotedCommentsSelector,
+} from '../../store/selectors';
 import defaultAvatar from '../../images/default_avatar.png';
 import './commentslist.scss';
 
-const CommentItem = ({ id, text, owner, upvotes, downvotes, className, isCommentDownvoted, isCommentUpvoted, }) => {
+const CommentItem = ({ id, text, owner, upvotes, downvotes, className,
+  isCommentDownvoted, isCommentUpvoted, isEditable, }) => {
+
   const dispatch = useDispatch();
+
   const avatartSrc = owner.avatar ?
     (owner.avatar.startsWith('http') ? owner.avatar : 'http://localhost:8000' + owner.avatar)
     : defaultAvatar;
+
+  const onSave = (e, key, data) => {
+    e.preventDefault();
+
+    const body = { [key]: data, };
+
+    updateComment(id, body)
+      .then(comment => {
+        updateSeparatePostComment(dispatch, comment);
+      });
+  };
+
   return (
     <li key={id} className='comments__list-item'>
       <div className={`comments__list-arrows ${className && 'comments__list-arrows--' + className}`}>
@@ -55,13 +74,21 @@ const CommentItem = ({ id, text, owner, upvotes, downvotes, className, isComment
           </div>
           <div className='comments__info-username'>{owner.username}</div>
         </div>
-        <div className='comments__info-text'>{text}</div>
+        <EditTextarea
+          defaultInfo={text}
+          infoType='text'
+          placeholder='Text'
+          classNamePrefix='comments__info'
+          isEditable={isEditable}
+          validateFunc={validateCommentText}
+          onSave={onSave}
+        />
       </div>
     </li>
   );
 };
 
-export const CommentsList = () => {
+export const CommentsList = ({ currentUser, }) => {
   const comments = useSelector(postCommentsSelector);
   const upvotedComments = useSelector(upvotedCommentsSelector);
   const downvotedComments = useSelector(downvotedCommentsSelector);
@@ -79,6 +106,8 @@ export const CommentsList = () => {
       {comments.length > 0 ?
         <ul className='comments__lsit'>
           {comments.map(comment => {
+            const isEditable = currentUser.id === comment.owner.id;
+
             const upvoted = isCommentUpvoted(comment);
             const downvoted = upvoted ? false : isCommentDownvoted(comment);
             const className = upvoted ? 'up' : downvoted ? 'down' : '';
@@ -88,6 +117,7 @@ export const CommentsList = () => {
               className={className}
               isCommentUpvoted={() => isCommentUpvoted(comment)}
               isCommentDownvoted={() => isCommentDownvoted(comment)}
+              isEditable={isEditable}
               {...comment}
             />;
           })}

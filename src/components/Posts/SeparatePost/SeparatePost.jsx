@@ -84,8 +84,8 @@ export const SeparatePost = ({ currentUser, }) => {
     const body = key === 'text' ? { 'mainText': data, } : { [key]: data, };
 
     updatePost(post.id, body)
-      .then(currentUser => {
-        updateSeparatePost(dispatch, currentUser);
+      .then(post => {
+        updateSeparatePost(dispatch, post);
       });
   };
 
@@ -216,7 +216,7 @@ export const SeparatePost = ({ currentUser, }) => {
               Delete post
             </Button>
             : null}
-          <CommentsList />
+          <CommentsList currentUser={currentUser} />
         </div>
         <div className='post__add'>
           <Button
