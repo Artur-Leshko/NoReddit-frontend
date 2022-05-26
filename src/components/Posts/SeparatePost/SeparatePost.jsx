@@ -216,7 +216,7 @@ export const SeparatePost = ({ currentUser, }) => {
               Delete post
             </Button>
             : null}
-          <CommentsList currentUser={currentUser} />
+          <CommentsList currentUser={currentUser} postOwnerId={post.owner.id} />
         </div>
         <div className='post__add'>
           <Button

@@ -30,9 +30,14 @@ export const downvoteComment = async (commentId) => {
     .catch(error => Promise.reject(error));
 };
 
-
 export const updateComment = async (commentId, commentData) => {
   return api.put(`/comments/${commentId}/`, { ...commentData, })
+    .then(data => data)
+    .catch(error => Promise.reject(error));
+};
+
+export const deleteComment = async (commentId) => {
+  return api.delete(`/comments/${commentId}/`)
     .then(data => data)
     .catch(error => Promise.reject(error));
 };
