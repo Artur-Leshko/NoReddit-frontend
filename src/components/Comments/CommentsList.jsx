@@ -1,7 +1,17 @@
-import React, { useContext, } from 'react';
+import React, { useContext, useState, } from 'react';
 import { useSelector, useDispatch, } from 'react-redux';
-import { useNavigate, } from 'react-router-dom';
-import { Button, ButtonKinds, ButtonStyles, EditTextarea, validateCommentText, } from '../../common';
+import { useNavigate, useParams, } from 'react-router-dom';
+import {
+  Button,
+  ButtonKinds,
+  ButtonStyles,
+  Textarea,
+  TextareaKinds,
+  EditTextarea,
+  validateCommentText,
+  ErrorBlock,
+  canBeSubmited,
+} from '../../common';
 import { ModalContext, } from '../../contexts';
 import {
   addUpvotedComment,
@@ -10,8 +20,9 @@ import {
   removeDownvotedComment,
   updateSeparatePostComment,
   removePostComment,
+  addPostComment,
 } from '../../store/actions';
-import { updateComment, upvoteComment, downvoteComment, deleteComment, } from '../../api';
+import { updateComment, upvoteComment, downvoteComment, deleteComment, createComment, } from '../../api';
 import {
   postCommentsSelector,
   upvotedCommentsSelector,
@@ -31,7 +42,7 @@ const CommentItem = ({ id, text, owner, upvotes, downvotes, className,
     (owner.avatar.startsWith('http') ? owner.avatar : 'http://localhost:8000' + owner.avatar)
     : defaultAvatar;
 
-  const onSave = (e, key, data) => {
+  const onUpdate = (e, key, data) => {
     e.preventDefault();
 
     const body = { [key]: data, };
@@ -133,7 +144,7 @@ const CommentItem = ({ id, text, owner, upvotes, downvotes, className,
           classNamePrefix='comments__info'
           isEditable={isEditable}
           validateFunc={validateCommentText}
-          onSave={onSave}
+          onSave={onUpdate}
         />
       </div>
     </li>
@@ -144,17 +155,60 @@ export const CommentsList = ({ currentUser, postOwnerId, }) => {
   const comments = useSelector(postCommentsSelector);
   const upvotedComments = useSelector(upvotedCommentsSelector);
   const downvotedComments = useSelector(downvotedCommentsSelector);
+  const [text, setText,] = useState('');
+  const [errors, setErrors,] = useState({
+    text: [],
+  });
 
-  const isCommentUpvoted = (post) => {
-    return upvotedComments.find(p => p.id === post.id);
+  const { postId, } = useParams();
+  const dispatch = useDispatch();
+
+  const isCommentUpvoted = (comment) => {
+    return upvotedComments.find(c => c.id === comment.id);
   };
 
-  const isCommentDownvoted = (post) => {
-    return downvotedComments.find(p => p.id === post.id);
+  const isCommentDownvoted = (comment) => {
+    return downvotedComments.find(c => c.id === comment.id);
+  };
+
+  const onSave = (e) => {
+    e.preventDefault();
+
+    const newErrors = validateCommentText(text);
+    setErrors(newErrors);
+
+    if (canBeSubmited(newErrors)) {
+      const body = { 'text': text, 'post_id': postId, };
+
+      createComment(body)
+        .then(comment => {
+          addPostComment(dispatch, comment);
+          setText('');
+        });
+    }
   };
 
   return (
     <div className='comments'>
+      <div className='comments__form'>
+        <div className='comments__form-title'>Want to leave comment?</div>
+        <Textarea
+          kind={TextareaKinds.INFO}
+          className='comments__form-tex'
+          placeholder='Text'
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
+        <ErrorBlock errorArr={errors.text} id='text' />
+        <Button
+          kind={ButtonKinds.INFO}
+          style={ButtonStyles.CANCEL}
+          className='comments__form-add'
+          onClick={onSave}
+        >
+          Leave a comment
+        </Button>
+      </div>
       {comments.length > 0 ?
         <ul className='comments__lsit'>
           {comments.map(comment => {
