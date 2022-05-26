@@ -28,4 +28,5 @@ export {
   updateComment,
   upvoteComment,
   downvoteComment,
+  deleteComment,
 } from './comments';
