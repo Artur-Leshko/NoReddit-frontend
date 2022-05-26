@@ -13,4 +13,5 @@ export {
   validatePostForm,
   validatePostText,
   validatePostTitle,
+  validateCommentText,
 } from './functions/validateFunctions';

@@ -67,6 +67,17 @@ export function validatePostText(text) {
   return errors;
 }
 
+//validates text for comment change
+export function validateCommentText(text) {
+  const errors = { text: [], };
+
+  errors.text = [{ ...validateTextForComment(text), },];
+
+  removeEmptyObjects(errors);
+
+  return errors;
+}
+
 /*=================================================================================================*/
 //     SUPPORTING FUNCTIONS THAT ARE USED TO VALIDATE PARTICULAR PARAMETERS(STRING, LINK, DATE, ETC.)
 
@@ -147,6 +158,16 @@ function validateMainText(mainText) {
 
   if (!mainText || mainText.length < 20) {
     errorObj.errorText.push('Text must constain at least 20 characters!');
+  }
+
+  return errorObj.errorText.length === 0 ? null : errorObj;
+}
+
+function validateTextForComment(text) {
+  const errorObj = { errorText: [], id: 'text', };
+
+  if (!text || text.length < 1) {
+    errorObj.errorText.push('Text must constain at least 1 characters!');
   }
 
   return errorObj.errorText.length === 0 ? null : errorObj;
