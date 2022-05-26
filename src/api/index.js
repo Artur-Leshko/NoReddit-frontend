@@ -29,4 +29,5 @@ export {
   upvoteComment,
   downvoteComment,
   deleteComment,
+  createComment,
 } from './comments';
