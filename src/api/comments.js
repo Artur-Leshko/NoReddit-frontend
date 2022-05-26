@@ -41,3 +41,9 @@ export const deleteComment = async (commentId) => {
     .then(data => data)
     .catch(error => Promise.reject(error));
 };
+
+export const createComment = async (commentData) => {
+  return api.post('/comments/', { ...commentData, })
+    .then(data => data)
+    .catch(error => Promise.reject(error));
+};

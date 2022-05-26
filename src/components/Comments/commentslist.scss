@@ -19,6 +19,22 @@
     }
   }
 
+  &__form {
+    margin-bottom: 30px;
+
+    &-title {
+      color: white;
+      font-size: 24px;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    &-add {
+      font-size: 20px;
+      margin-top: 10px;
+    }
+  }
+
   &__nocomments {
     color: white;
     font-size: 28px;
@@ -199,6 +215,11 @@
 
     &-cancel {
       margin-left: 10px;
+    }
+
+    &-edit {
+      padding: 5px 10px;
+      font-size: 14px;
     }
 
     &-delete {
