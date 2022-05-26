@@ -14,7 +14,7 @@ export {
   removeUpvotedPost,
 } from './votedPostsAction';
 export { updateSeparatePost, } from './separatePostActions';
-export { updatePostComments, } from './postCommentsActions';
+export { updatePostComments, updateSeparatePostComment, } from './postCommentsActions';
 export {
   updateDownvotedComment,
   updateUpvotedComment,
