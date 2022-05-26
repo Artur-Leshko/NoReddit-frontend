@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useContext, } from 'react';
 import { useSelector, useDispatch, } from 'react-redux';
+import { useNavigate, } from 'react-router-dom';
 import { Button, ButtonKinds, ButtonStyles, EditTextarea, validateCommentText, } from '../../common';
+import { ModalContext, } from '../../contexts';
 import {
   addUpvotedComment,
   addDownvotedComment,
   removeUpvotedComment,
   removeDownvotedComment,
   updateSeparatePostComment,
+  removePostComment,
 } from '../../store/actions';
-import { updateComment, upvoteComment, downvoteComment, } from '../../api';
+import { updateComment, upvoteComment, downvoteComment, deleteComment, } from '../../api';
 import {
   postCommentsSelector,
   upvotedCommentsSelector,
@@ -18,9 +21,11 @@ import defaultAvatar from '../../images/default_avatar.png';
 import './commentslist.scss';
 
 const CommentItem = ({ id, text, owner, upvotes, downvotes, className,
-  isCommentDownvoted, isCommentUpvoted, isEditable, }) => {
+  isCommentDownvoted, isCommentUpvoted, isEditable, isDeletable, }) => {
+  const { openModal, closeModal, } = useContext(ModalContext);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const avatartSrc = owner.avatar ?
     (owner.avatar.startsWith('http') ? owner.avatar : 'http://localhost:8000' + owner.avatar)
@@ -35,6 +40,38 @@ const CommentItem = ({ id, text, owner, upvotes, downvotes, className,
       .then(comment => {
         updateSeparatePostComment(dispatch, comment);
       });
+  };
+
+  const onDeleteConfirm = () => {
+    deleteComment(id)
+      .then(() => {
+        removePostComment(dispatch, { id, text, });
+        closeModal();
+      });
+  };
+
+  const onDelete = () => {
+    openModal({
+      title: 'Do you want to delete this comment?',
+      children: <>
+        <Button
+          kind={ButtonKinds.INFO}
+          style={ButtonStyles.DELETE}
+          onClick={onDeleteConfirm}
+          className='modal-btn'
+        >
+          Delete
+        </Button>
+        <Button
+          kind={ButtonKinds.INFO}
+          style={ButtonStyles.CANCEL}
+          onClick={closeModal}
+          className='modal-btn'
+        >
+          Cancel
+        </Button>
+      </>,
+    });
   };
 
   return (
@@ -70,9 +107,24 @@ const CommentItem = ({ id, text, owner, upvotes, downvotes, className,
       <div className='comments__info'>
         <div className='comments__info-user'>
           <div className='comments__info-avatar'>
+            <div className='comments__info-gray' onClick={e => navigate(`/noreddit/profile/${owner.id}`)}></div>
             <img src={avatartSrc} alt='avatar' />
           </div>
-          <div className='comments__info-username'>{owner.username}</div>
+          <div className='comments__info-username'
+            onClick={e => navigate(`/noreddit/profile/${owner.id}`)}
+          >
+            {owner.username}
+          </div>
+          {isDeletable ?
+            <Button
+              kind={ButtonKinds.INFO}
+              style={ButtonStyles.DELETE}
+              className='comments__info-delete'
+              onClick={onDelete}
+            >
+              Delete
+            </Button>
+            : null}
         </div>
         <EditTextarea
           defaultInfo={text}
@@ -88,7 +140,7 @@ const CommentItem = ({ id, text, owner, upvotes, downvotes, className,
   );
 };
 
-export const CommentsList = ({ currentUser, }) => {
+export const CommentsList = ({ currentUser, postOwnerId, }) => {
   const comments = useSelector(postCommentsSelector);
   const upvotedComments = useSelector(upvotedCommentsSelector);
   const downvotedComments = useSelector(downvotedCommentsSelector);
@@ -107,6 +159,7 @@ export const CommentsList = ({ currentUser, }) => {
         <ul className='comments__lsit'>
           {comments.map(comment => {
             const isEditable = currentUser.id === comment.owner.id;
+            const isDeletable = currentUser.id === comment.owner.id || currentUser.id === postOwnerId;
 
             const upvoted = isCommentUpvoted(comment);
             const downvoted = upvoted ? false : isCommentDownvoted(comment);
@@ -118,6 +171,7 @@ export const CommentsList = ({ currentUser, }) => {
               isCommentUpvoted={() => isCommentUpvoted(comment)}
               isCommentDownvoted={() => isCommentDownvoted(comment)}
               isEditable={isEditable}
+              isDeletable={isDeletable}
               {...comment}
             />;
           })}
