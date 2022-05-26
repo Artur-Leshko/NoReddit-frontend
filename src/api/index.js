@@ -25,4 +25,6 @@ export {
   getPostComments,
   getDownvotedComments,
   getUpvotedComments,
+  upvoteComment,
+  downvoteComment,
 } from './comments';
