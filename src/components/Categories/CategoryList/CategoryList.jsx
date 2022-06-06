@@ -21,12 +21,13 @@ export const CategoryList = () => {
   }, []);
 
   return (
-    <>
-      <div className='categories__title'>
-        all categories
-      </div>
-      {isLoading ? <Loader />
-        : <ul className='categories__list'>
+    isLoading ? <Loader />
+      :
+      <>
+        <div className='categories__title'>
+          all categories
+        </div>
+        <ul className='categories__list'>
           {categories?.map(category => {
             const { id, name, description, categoryImage, } = category;
 
@@ -48,7 +49,6 @@ export const CategoryList = () => {
             );
           })}
         </ul>
-      }
-    </>
+      </>
   );
 };

@@ -34,4 +34,5 @@ export {
 
 export {
   getAllCategories,
+  getCategoryPosts,
 } from './categories';

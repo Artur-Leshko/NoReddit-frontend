@@ -6,6 +6,7 @@ export { updatePopularPosts, updateSeparatePopularPost, } from './popularPostsAc
 export { updateSeparateUserPost, updateUserPosts, } from './userPostsActions';
 export { updateSeparatePost, } from './separatePostActions';
 export { updateCategories, } from './categoriesActions';
+export { updateCategoryPosts, updateSeparateCategoryPost, } from './categoryPostsActions';
 
 export {
   updateDownvotedPost,

@@ -5,3 +5,9 @@ export const getAllCategories = () => {
     .then(data => data)
     .catch(error => Promise.reject(error));
 };
+
+export const getCategoryPosts = (categoryName) => {
+  return api.get(`/categories/${categoryName}/posts/`)
+    .then(data => data)
+    .catch(error => Promise.reject(error));
+};
