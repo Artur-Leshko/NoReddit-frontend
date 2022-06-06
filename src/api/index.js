@@ -31,3 +31,7 @@ export {
   deleteComment,
   createComment,
 } from './comments';
+
+export {
+  getAllCategories,
+} from './categories';

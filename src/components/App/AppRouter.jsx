@@ -7,6 +7,7 @@ import { Login, Register, } from '../User';
 import { MainPage, } from '../MainPage';
 import { ProfileLayout, } from '../Profile/ProfileLayout';
 import { PostLayout, } from '../Posts';
+import { CategoryLayout, } from '../Categories';
 
 const AppRouter = () => {
   return (
@@ -21,6 +22,7 @@ const AppRouter = () => {
               <Route index element={<MainPage />} />
               <Route path='profile/:profileId/*' element={<ProfileLayout />} />
               <Route path='posts/*' element={<PostLayout />} />
+              <Route path='categories/*' element={<CategoryLayout />} />
             </Route>
           </Route>
           <Route path='*' element={<NotFound />} />
