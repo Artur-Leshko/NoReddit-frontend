@@ -12,3 +12,4 @@ export const postCommentsSelector = state => state.postComments;
 export const upvotedCommentsSelector = state => state.votedComments.up;
 export const downvotedCommentsSelector = state => state.votedComments.down;
 export const categoriesSelector = state => state.categories;
+export const categoryPosts = state => state.categoryPosts;
