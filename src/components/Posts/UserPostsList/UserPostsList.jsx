@@ -96,7 +96,7 @@ export const UserPostsList = ({ title, posts, needBtn, fixedBtn, main, updatePos
             );
           })}
         </ul>
-        : <div className='posts__noposts'>No popular posts :(</div>
+        : <div className='posts__noposts'>Sorry, there are no posts :(</div>
       }
       {needBtn ?
         <div className={`posts__add ${fixedBtn ? 'posts__add--fixed' : ''}`}>
