@@ -4,6 +4,9 @@ export { updateUser, } from './userAction';
 export { updateFollowed, updateFollowers, addFollower, removeFollower, } from './subscriptions';
 export { updatePopularPosts, updateSeparatePopularPost, } from './popularPostsActions';
 export { updateSeparateUserPost, updateUserPosts, } from './userPostsActions';
+export { updateSeparatePost, } from './separatePostActions';
+export { updateCategories, } from './categoriesActions';
+
 export {
   updateDownvotedPost,
   updateUpvotedPost,
@@ -13,13 +16,14 @@ export {
   removeDownvotedPost,
   removeUpvotedPost,
 } from './votedPostsAction';
-export { updateSeparatePost, } from './separatePostActions';
+
 export {
   updatePostComments,
   updateSeparatePostComment,
   removePostComment,
   addPostComment,
 } from './postCommentsActions';
+
 export {
   updateDownvotedComment,
   updateUpvotedComment,
