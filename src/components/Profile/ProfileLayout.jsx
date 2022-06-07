@@ -84,6 +84,7 @@ export const ProfileLayout = () => {
                     fixedBtn={false}
                     main={false}
                     updatePost={updateSeparateUserPost}
+                    ordering={false}
                   />}
               />
               <Route
