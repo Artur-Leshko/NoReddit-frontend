@@ -70,7 +70,7 @@ export const Select = ({ kind, className, items, selectedItemName, onItemChange,
       </div>
 
       <div className='select__body'>
-        <div className='select__item' key='item' onClick={() => onItemChange('')}>{noItemText}</div>
+        {noItemText ? <div className='select__item' key='item' onClick={() => onItemChange('')}>{noItemText}</div> : null}
         {items ?
           items.map(item => (
             <div
