@@ -43,12 +43,13 @@ export const UserPostsList = ({ title, posts, needBtn, fixedBtn, main, updatePos
             const avatartSrc = post.owner.avatar ?
               (post.owner.avatar.startsWith('http') ? post.owner.avatar : 'http://localhost:8000' + post.owner.avatar)
               : defaultAvatar;
+            const categories = post.categories;
             const upvoted = isPostUpvoted(post);
             const downvoted = upvoted ? false : isPostDownvoted(post);
             const className = upvoted ? 'up' : downvoted ? 'down' : '';
 
             return (
-              <li className={className} key={post.id}>
+              <li className={'posts__list-item ' + className} key={post.id}>
                 <div className={`posts__list-arrows ${className && 'posts__list-arrows--' + className}`}>
                   <div className='posts__arrows-group'>
                     <div className='posts__arrows-count posts__arrows-count--up'>{post.upvotes}</div>
@@ -86,6 +87,23 @@ export const UserPostsList = ({ title, posts, needBtn, fixedBtn, main, updatePos
                       />
                     </div>
                     <div className='posts__info-username'>{post.owner.username}</div>
+                    {categories.length > 0 ?
+                      <ul className='posts__info-categories'>
+                        {categories.map(category => {
+                          const { id, name, } = category;
+                          const avatarSrc = category.categoryImage.startsWith('http') ? category.categoryImage :
+                            'http://localhost:8000' + category.categoryImage;
+
+                          return (
+                            <li key={id} className='posts__categories-item'>
+                              <div className='posts__categories-name'>{name}</div>
+                              <div className='posts__categories-image'><img src={avatarSrc} alt='category image' /></div>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                      : null
+                    }
                   </div>
                   <div className='posts__info-title'>{post.title}</div>
                   <div className='posts__info-text'>
