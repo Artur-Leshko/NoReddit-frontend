@@ -76,7 +76,7 @@
     top: 100%;
 
 
-    border: 2px solid #0a5ac9;
+    border: 2px solid white;
     border-top: none;
     border-radius: 10px;
     border-top: 0;
@@ -91,14 +91,14 @@
 
     padding: 8px 10px;
 
-    border: 2px solid #0a5ac9;
+    border: 2px solid white;
     border-radius: 10px;
 
     cursor: pointer;
   }
 
   &__current {
-    color: #0a5ac9;
+    color: white;
     font-size: 16px;
     font-weight: 500;
     line-height: 24px;
@@ -109,9 +109,10 @@
     width: 10px;
 
     margin-top: -4px;
+    margin-left: 10px;
 
-    border-top: 2px solid #0a5ac9;
-    border-right: 2px solid #0a5ac9;
+    border-top: 2px solid white;
+    border-right: 2px solid white;
 
     transform: rotate(135deg);
 
@@ -119,14 +120,17 @@
   }
 
   &__item {
-    cursor: pointer;
+    padding: 8px 10px;
+
+    color: white;
     font-size: 16px;
     line-height: 24px;
-    padding: 8px 10px;
+
+    cursor: pointer;
   }
 
   &.is-active {
-    &.select__header {
+    & .select__header {
       border-bottom: none;
       border-color: #11b806;
       border-bottom-left-radius: 0px;
@@ -153,7 +157,7 @@
   }
 
   & .select__item:hover {
-    background-color: #2d5cc2;
+    background-color: #11b806;
   }
 }
 

@@ -36,7 +36,7 @@
   &__add--fixed {
     position: fixed;
     top: 26%;
-    right: 5%;
+    right: 4%;
 
     width: 12%;
 
@@ -244,5 +244,12 @@
       font-size: 24px;
       font-weight: 500;
     }
+  }
+
+  &__sort {
+    position: fixed;
+    top: 26%;
+    left: 4%;
+    z-index: 2;
   }
 }

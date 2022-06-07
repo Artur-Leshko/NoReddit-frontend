@@ -21,6 +21,12 @@ export const MainPage = () => {
       .finally(() => setTimeout(() => setIsLoading(false), 1000));
   }, []);
 
+  const getFilteredPosts = (id, ordering, setOrder) => {
+    const newOrder = ordering.find(item => item.id === id).name;
+    setOrder(newOrder);
+    getPopularPosts({ ordering: newOrder, }).then(posts => updatePopularPosts(dispatch, posts.results));
+  };
+
   return (
     <div className='main'>
       <div className='container'>
@@ -34,6 +40,8 @@ export const MainPage = () => {
                 fixedBtn={true}
                 main={true}
                 updatePost={updateSeparatePopularPost}
+                filterPosts={getFilteredPosts}
+                needOrder={true}
               />
             </>
           }

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, } from 'react';
 import { useDispatch, useSelector, } from 'react-redux';
 import { useNavigate, } from 'react-router-dom';
-import { Button, ButtonKinds, ButtonStyles, } from '../../../common';
+import { Button, ButtonKinds, ButtonStyles, Sort, } from '../../../common';
 import { upvotePost, downvotePost, } from '../../../api';
 import {
   addUpvotedPost,
@@ -13,9 +13,11 @@ import { upvotedPostsSelector, downvotedPostsSelector, } from '../../../store/se
 import defaultAvatar from '../../../images/default_avatar.png';
 import './userpostslist.scss';
 
-export const UserPostsList = ({ title, posts, needBtn, fixedBtn, main, updatePost, }) => {
+export const UserPostsList = ({ title, posts, needBtn, fixedBtn, main, updatePost, filterPosts, needOrder, }) => {
   const upvotedPosts = useSelector(upvotedPostsSelector);
   const downvotedPosts = useSelector(downvotedPostsSelector);
+  const [order, setOrder,] = useState('DESC');
+  const ordering = [{ id: 'asc', name: 'ASC', }, { id: 'desc', name: 'DESC', },];
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -115,6 +117,16 @@ export const UserPostsList = ({ title, posts, needBtn, fixedBtn, main, updatePos
           })}
         </ul>
         : <div className='posts__noposts'>Sorry, there are no posts :(</div>
+      }
+      {needOrder ?
+        <Sort
+          title='Date sort:'
+          className='posts__sort'
+          items={ordering}
+          selectedItemName={order}
+          onItemChange={(id) => filterPosts(id, ordering, setOrder)}
+        />
+        : null
       }
       {needBtn ?
         <div className={`posts__add ${fixedBtn ? 'posts__add--fixed' : ''}`}>

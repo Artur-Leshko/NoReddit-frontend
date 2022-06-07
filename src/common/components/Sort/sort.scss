@@ -1,0 +1,12 @@
+.sort {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__title {
+    color: white;
+    font-size: 24px;
+    font-weight: 500;
+    margin-right: 10px;
+  }
+}
