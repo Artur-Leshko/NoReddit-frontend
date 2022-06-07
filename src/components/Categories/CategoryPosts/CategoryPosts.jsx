@@ -22,6 +22,12 @@ export const CategoryPosts = () => {
       .finally(() => setTimeout(() => setIsLoading(false), 1000));
   }, [categoryName,]);
 
+  const getFilteredPosts = (id, ordering, setOrder,) => {
+    const newOrder = ordering.find(item => item.id === id).name;
+    setOrder(newOrder);
+    getCategoryPosts(categoryName, { ordering: newOrder, }).then(posts => updateCategoryPosts(dispatch, posts.results));
+  };
+
   return (
     isLoading ? <Loader />
       : <>
@@ -32,6 +38,9 @@ export const CategoryPosts = () => {
           fixedBtn={false}
           main={true}
           updatePost={updateSeparateCategoryPost}
+          updatePosts={updateCategoryPosts}
+          filterPosts={getFilteredPosts}
+          needOrder={true}
         />
         <Button
           kind={ButtonKinds.INFO}
