@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, } from 'react';
+import React, { useEffect, useState, useContext, useRef, } from 'react';
 import { useDispatch, useSelector, } from 'react-redux';
 import { useNavigate, useParams, } from 'react-router-dom';
 import { ModalContext, } from '../../../contexts';
@@ -44,10 +44,12 @@ export const SeparatePost = ({ currentUser, }) => {
   const avatartSrc = post?.owner?.avatar ?
     (post.owner.avatar.startsWith('http') ? post.owner.avatar : 'http://localhost:8000' + post.owner.avatar)
     : defaultAvatar;
+  const categories = post.categories;
   const [isLoading, setIsLoading,] = useState(true);
   const [isUpvoted, setIsUpvoted,] = useState(false);
   const [isDownvoted, setIsDownvoted,] = useState(false);
 
+  const firstLoad = useRef(true);
   const { postId, } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -69,6 +71,15 @@ export const SeparatePost = ({ currentUser, }) => {
       updateVotedComments(dispatch, { up: data[2], down: data[3], });
     }).finally(() => setTimeout(() => setIsLoading(false), 1000));
   }, [postId,]);
+
+  useEffect(() => {
+    if (isPostUpvoted(post)) {
+      setIsUpvoted(true);
+    } else if (isPostDownvoted(post)) {
+      setIsDownvoted(true);
+    }
+
+  }, [post,]);
 
   const isPostUpvoted = (post) => {
     return upvotedPosts.find(p => p.id === post.id);
@@ -187,6 +198,23 @@ export const SeparatePost = ({ currentUser, }) => {
             <div className='post__info-username' onClick={e => navigate(`/noreddit/profile/${post.owner.id}`)}>
               {post.owner.username}
             </div>
+            {categories.length > 0 ?
+              <ul className='post__info-categories'>
+                {categories.map(category => {
+                  const { id, name, } = category;
+                  const avatarSrc = category.categoryImage.startsWith('http') ? category.categoryImage :
+                    'http://localhost:8000' + category.categoryImage;
+
+                  return (
+                    <li key={id} className='post__categories-item'>
+                      <div className='post__categories-name' onClick={(e) => navigate(`/noreddit/categories/${name}`)}>{name}</div>
+                      <div className='post__categories-image'><img src={avatarSrc} alt='category image' /></div>
+                    </li>
+                  );
+                })}
+              </ul>
+              : null
+            }
           </div>
           <EditText
             defaultInfo={post.title}
