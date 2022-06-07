@@ -221,13 +221,49 @@
       }
     }
 
+    &-categories {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      margin-left: 30px;
+
+      .post__categories {
+
+        &-item {
+          margin-right: 15px;
+          display: flex;
+          align-items: center;
+        }
+
+        &-name {
+          color: white;
+          font-size: 24px;
+          font-weight: 500;
+          margin-right: 8px;
+          cursor: pointer;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+
+        &-image {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          overflow: hidden;
+        }
+      }
+    }
+
     &-title {
       color: white;
       font-size: 38px;
       font-weight: 500;
 
       letter-spacing: 1.8px;
-      word-break: break-all;
+      word-break: normal;
 
       margin-bottom: 10px;
     }
@@ -236,7 +272,7 @@
       color: #bebebe;
       font-size: 28px;
       font-weight: 500;
-      word-break: break-all;
+      word-break: normal;
     }
 
     input {

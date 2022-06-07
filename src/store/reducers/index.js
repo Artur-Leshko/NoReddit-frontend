@@ -43,7 +43,7 @@ const initialState = {
   postComments: [],
   votedComments: { up: [], down: [], },
   categories: [],
-  categoryPost: [],
+  categoryPosts: [],
 };
 
 const rootReducer = (state, action) => {

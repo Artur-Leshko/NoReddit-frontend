@@ -9,8 +9,8 @@ import {
   ButtonKinds,
   ButtonStyles,
 } from '../../common';
-import { signIn, getSelfUserpofile, } from '../../api';
-import { updateCurrentUser, } from '../../store/actions';
+import { signIn, getSelfUserpofile, getUpvotedPosts, getDownvotedPosts, } from '../../api';
+import { updateCurrentUser, updateVotedPosts, } from '../../store/actions';
 import { userSelector, } from '../../store/selectors';
 import './user.scss';
 
@@ -35,7 +35,14 @@ export const Login = () => {
       localStorage.setItem(AUTH_TOKEN_KEY, JSON.stringify(access));
       localStorage.setItem(REFRESH_TOKEN_KEY, JSON.stringify(refresh));
 
-      await getSelfUserpofile().then(user => updateCurrentUser(dispatch, user));
+      await Promise.all([
+        getSelfUserpofile().then(user => user),
+        getUpvotedPosts().then(upPosts => upPosts.results),
+        getDownvotedPosts().then(downPosts => downPosts.results),
+      ]).then(data => {
+        updateCurrentUser(dispatch, data[0]);
+        updateVotedPosts(dispatch, { up: data[1], down: data[2], });
+      });
 
       if (location.state?.from) {
         navigate(location.state.from.pathname);
