@@ -1,7 +1,7 @@
 import api from './api';
 
-export const getPopularPosts = async () => {
-  return api.get('/posts/popular/')
+export const getPopularPosts = async (params) => {
+  return api.get('/posts/popular', { params: { ...params, }, })
     .then(data => data)
     .catch(error => Promise.reject(error));
 };
