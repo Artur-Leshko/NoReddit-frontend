@@ -7,6 +7,7 @@ export { updateSeparateUserPost, updateUserPosts, } from './userPostsActions';
 export { updateSeparatePost, } from './separatePostActions';
 export { updateCategories, } from './categoriesActions';
 export { updateCategoryPosts, updateSeparateCategoryPost, } from './categoryPostsActions';
+export { updateAllUsers, } from './allUsersActions';
 
 export {
   updateDownvotedPost,
