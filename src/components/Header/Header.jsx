@@ -45,6 +45,9 @@ export const Header = () => {
               <li>
                 <Link to={`profile/${userprofile.id}/posts`} className='header__navigation-link'>My posts</Link>
               </li>
+              <li>
+                <Link to='users' className='header__navigation-link'>Users</Link>
+              </li>
             </ul>
           </nav>
           <div className='header__user'>
