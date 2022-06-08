@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate, } from 'react-router-dom';
 import { NotFound, ProtectedRoute, } from '../../common';
 import { ModalProvider, } from '../../contexts';
 import { Layout, } from '../Layout';
-import { Login, Register, } from '../User';
+import { Login, Register, UsersList, } from '../User';
 import { MainPage, } from '../MainPage';
 import { ProfileLayout, } from '../Profile/ProfileLayout';
 import { PostLayout, } from '../Posts';
@@ -23,6 +23,7 @@ const AppRouter = () => {
               <Route path='profile/:profileId/*' element={<ProfileLayout />} />
               <Route path='posts/*' element={<PostLayout />} />
               <Route path='categories/*' element={<CategoryLayout />} />
+              <Route path='users' element={<UsersList />} />
             </Route>
           </Route>
           <Route path='*' element={<NotFound />} />

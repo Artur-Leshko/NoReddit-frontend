@@ -13,6 +13,7 @@ import postComments from './postCommentsReducer';
 import votedComments from './votedCommentsReducer';
 import categories from './categoriesReducer';
 import categoryPosts from './categoryPostsReducer';
+import allUsers from './allUsersReducer';
 
 const appReducer = combineReducers({
   currentUser,
@@ -28,6 +29,7 @@ const appReducer = combineReducers({
   votedComments,
   categories,
   categoryPosts,
+  allUsers,
 });
 
 const initialState = {
@@ -44,6 +46,7 @@ const initialState = {
   votedComments: { up: [], down: [], },
   categories: [],
   categoryPosts: [],
+  allUsers: [],
 };
 
 const rootReducer = (state, action) => {
