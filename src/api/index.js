@@ -6,6 +6,7 @@ export {
   getFollowers, getFollowed,
   subscribeOnUser,
   unsubscribeFromUser,
+  getSearchedUsers,
 } from './userprofile';
 
 export {

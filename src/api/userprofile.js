@@ -46,3 +46,9 @@ export const unsubscribeFromUser = async (id) => {
     .then(data => data)
     .catch(error => Promise.reject(error));
 };
+
+export const getSearchedUsers = async (params) => {
+  return api.get('user', { params: { ...params, }, })
+    .then(data => data)
+    .catch(error => Promise.reject(error));
+};
