@@ -54,7 +54,7 @@ export const CategoriesBlock = ({ categories, allowedCategories,
             <div className={`post__categories-body${showCategoriesList ? ' post__categories-body--active' : null}`}>
               {categories.length < 3 ?
                 allowedCategories.map(category => {
-                  const { id, name, } = category;
+                  const { id, } = category;
                   const avatarSrc = category.categoryImage.startsWith('http') ? category.categoryImage :
                     'http://localhost:8000' + category.categoryImage;
                   const isAlreadyUsed = categories.find(c => c.id === category.id);
