@@ -1,7 +1,7 @@
 import React, { useState, } from 'react';
 import { useDispatch, useSelector, } from 'react-redux';
 import { useNavigate, } from 'react-router-dom';
-import { Button, ButtonKinds, ButtonStyles, Sort, } from '../../../common';
+import { Button, ButtonKinds, ButtonStyles, Sort, CategoriesBlock, } from '../../../common';
 import { upvotePost, downvotePost, } from '../../../api';
 import {
   addUpvotedPost,
@@ -89,23 +89,10 @@ export const UserPostsList = ({ title, posts, needBtn, fixedBtn, main, updatePos
                       />
                     </div>
                     <div className='posts__info-username'>{post.owner.username}</div>
-                    {categories.length > 0 ?
-                      <ul className='posts__info-categories'>
-                        {categories.map(category => {
-                          const { id, name, } = category;
-                          const avatarSrc = category.categoryImage.startsWith('http') ? category.categoryImage :
-                            'http://localhost:8000' + category.categoryImage;
-
-                          return (
-                            <li key={id} className='posts__categories-item'>
-                              <div className='posts__categories-name'>{name}</div>
-                              <div className='posts__categories-image'><img src={avatarSrc} alt='category image' /></div>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                      : null
-                    }
+                    <CategoriesBlock
+                      categories={categories}
+                      classNamePrefix='userposts'
+                    />
                   </div>
                   <div className='posts__info-title'>{post.title}</div>
                   <div className='posts__info-text'>
