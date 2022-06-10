@@ -9,6 +9,7 @@ import {
   Loader,
   EditText,
   EditTextarea,
+  CategoriesBlock,
   validatePostTitle,
   validatePostText,
 } from '../../../common';
@@ -49,7 +50,6 @@ export const SeparatePost = ({ currentUser, }) => {
   const [isUpvoted, setIsUpvoted,] = useState(false);
   const [isDownvoted, setIsDownvoted,] = useState(false);
 
-  const firstLoad = useRef(true);
   const { postId, } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -198,23 +198,10 @@ export const SeparatePost = ({ currentUser, }) => {
             <div className='post__info-username' onClick={e => navigate(`/noreddit/profile/${post.owner.id}`)}>
               {post.owner.username}
             </div>
-            {categories.length > 0 ?
-              <ul className='post__info-categories'>
-                {categories.map(category => {
-                  const { id, name, } = category;
-                  const avatarSrc = category.categoryImage.startsWith('http') ? category.categoryImage :
-                    'http://localhost:8000' + category.categoryImage;
-
-                  return (
-                    <li key={id} className='post__categories-item'>
-                      <div className='post__categories-name' onClick={(e) => navigate(`/noreddit/categories/${name}`)}>{name}</div>
-                      <div className='post__categories-image'><img src={avatarSrc} alt='category image' /></div>
-                    </li>
-                  );
-                })}
-              </ul>
-              : null
-            }
+            <CategoriesBlock
+              categories={categories}
+              classNamePrefix='separatepost'
+            />
           </div>
           <EditText
             defaultInfo={post.title}

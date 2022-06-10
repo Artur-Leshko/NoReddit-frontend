@@ -221,38 +221,17 @@
       }
     }
 
-    &-categories {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      flex-wrap: wrap;
+    &-categories--separatepost {
       margin-left: 30px;
 
       .post__categories {
 
-        &-item {
+        &-item--separatepost {
           margin-right: 15px;
-          display: flex;
-          align-items: center;
         }
 
-        &-name {
-          color: white;
-          font-size: 24px;
-          font-weight: 500;
+        &-name--separatepost {
           margin-right: 8px;
-          cursor: pointer;
-
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-
-        &-image {
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          overflow: hidden;
         }
       }
     }
