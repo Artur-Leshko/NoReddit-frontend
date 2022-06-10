@@ -4,6 +4,7 @@ export { ErrorBlock, } from './components/ErrorBlock/ErrorBlock';
 export { NotFound, } from './components/NotFound/NotFound';
 export { Loader, } from './components/Loader/Loader';
 export { Sort, } from './components/Sort/Sort';
+export { CategoriesBlock, } from './components/CategoriesBlock/CategoriesBlock';
 export { Modal, } from './components/Modal/Modal';
 export { EditText, EditTextarea, } from './components/EditComponents';
 export { ProtectedRoute, } from './components/ProtectedRoute';
