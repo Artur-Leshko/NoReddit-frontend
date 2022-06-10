@@ -45,7 +45,7 @@ export const Select = ({ kind, className, items, selectedItemName, onItemChange,
   const selectRef = useRef();
 
   function subscribeEvent(e) {
-    if (!selectRef.current.contains(e.target)) {
+    if (selectRef.current && !selectRef.current.contains(e.target)) {
       setIsActive(false);
     }
   }
